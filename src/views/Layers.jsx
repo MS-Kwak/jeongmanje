@@ -1,8 +1,9 @@
-import React, { useContext, useRef } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
 import TransitionContext from '../context/TransitionContext';
+import NET from 'vanta/dist/vanta.net.min';
 
 export default function Layers() {
   const main = useRef();
@@ -85,9 +86,27 @@ export default function Layers() {
     });
   });
 
+  const [vantaEffect, setVantaEffect] = useState(null);
+  const myRef = useRef(null);
+
+  useEffect(() => {
+    if (!vantaEffect) {
+      setVantaEffect(
+        NET({
+          el: myRef.current,
+          color: 0xabadcd,
+          backgroundColor: 0x212124,
+        })
+      );
+    }
+    return () => {
+      if (vantaEffect) vantaEffect.destroy();
+    };
+  }, [vantaEffect]);
+
   return (
     <main ref={main}>
-      <section className="panel gray">
+      <section ref={myRef} className="panel gray">
         <div>
           <h1>
             미래를 위한 보험은
@@ -101,9 +120,9 @@ export default function Layers() {
             <br />
             비급여로 많이 변경되고있습니다.
           </p>
-          <div className="scroll-down">
-            Scroll down<div className="arrow"></div>
-          </div>
+        </div>
+        <div className="scroll-down">
+          Scroll down<div className="arrow"></div>
         </div>
       </section>
       <section id="section1" className="panel dark">
