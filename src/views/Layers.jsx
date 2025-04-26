@@ -4,6 +4,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
 import TransitionContext from '../context/TransitionContext';
 import NET from 'vanta/dist/vanta.net.min';
+// import * as THREE from 'three';
 
 export default function Layers() {
   const main = useRef();
@@ -94,6 +95,7 @@ export default function Layers() {
       setVantaEffect(
         NET({
           el: myRef.current,
+          // THREE: THREE, // use a custom THREE when initializing
           color: 0xabadcd,
           backgroundColor: 0x212124,
         })
