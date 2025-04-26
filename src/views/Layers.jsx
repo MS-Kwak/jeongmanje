@@ -77,6 +77,11 @@ export default function Layers() {
     });
   });
 
+  function setActive(link) {
+    links.forEach((el) => el.classList.remove('active'));
+    link.classList.add('active');
+  }
+
   const goToSection = contextSafe((i) => {
     console.log('scroll to', i);
     scrollTween.current = gsap.to(window, {
