@@ -3,14 +3,21 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
 import TransitionContext from '../context/TransitionContext';
-import NET from 'vanta/dist/vanta.net.min';
-// import * as THREE from 'three';
+import myVenta from './Venta';
 
 export default function Layers() {
+  // venta net 백그라운드
+  const netRef = useRef(null);
+  const globeRef = useRef(null);
+
+  myVenta(netRef, 'NET');
+  myVenta(globeRef, 'GLOBE');
+
   const main = useRef();
   const { completed } = useContext(TransitionContext);
   const scrollTween = useRef();
   const snapTriggers = useRef([]);
+
   const { contextSafe } = useGSAP(
     () => {
       if (!completed) return;
@@ -92,28 +99,9 @@ export default function Layers() {
     });
   });
 
-  const [vantaEffect, setVantaEffect] = useState(null);
-  const myRef = useRef(null);
-
-  useEffect(() => {
-    if (!vantaEffect) {
-      setVantaEffect(
-        NET({
-          el: myRef.current,
-          // THREE: THREE, // use a custom THREE when initializing
-          color: 0xabadcd,
-          backgroundColor: 0x212124,
-        })
-      );
-    }
-    return () => {
-      if (vantaEffect) vantaEffect.destroy();
-    };
-  }, [vantaEffect]);
-
   return (
     <main ref={main}>
-      <section ref={myRef} className="panel gray">
+      <section ref={netRef} className="panel gray">
         <div>
           <h1>
             미래를 위한 보험은
@@ -166,7 +154,7 @@ export default function Layers() {
           <button className="kakaoButton"></button>
         </div>
       </section>
-      <section id="section3" className="panel dark">
+      <section ref={globeRef} id="section3" className="panel dark">
         <div>
           <h1>고객 후기</h1>
           <span>문*지님</span>
