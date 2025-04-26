@@ -22,7 +22,7 @@ const myVenta = (myRef, vantaType) => {
             el: myRef.current,
             // THREE: THREE, // use a custom THREE when initializing
             color: 0xabadcd,
-            backgroundColor: 0x212124,
+            backgroundColor: 0x1a1a1a,
           })
         );
       }
