@@ -66,24 +66,31 @@ nav li a {
   font-weight: normal;
 }
 
-nav li a:hover {
+nav li a:hover,
+nav li a:active {
   text-decoration: none;
-  color: #e0fffb;
-}
-
-.panel {
-  height: 100vh;
-  position: sticky;
-  top: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
+  color: rgba(200, 240, 255);
 }
 
 .section {
   width: 100%;
   height: 100vh;
+}
+
+.naverFormButton {
+  color: #fff;
+  border: 3px solid #fff;
+  font-size: 26px;
+  padding: 20px 30px;
+  margin-top: 40px;
+}
+.naverFormButton:hover,
+.naverFormButton:active {
+  color: rgba(200, 240, 255);
+  border-color: rgba(200, 240, 255, 0.5);
+  font-family: 'NotoSansBold';
+  font-size: 27px;
+  font-weight: bolder;
 }
 
 .flex-center {
@@ -560,6 +567,14 @@ button.kakaoButton {
 
 /* panels */
 .panel {
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  flex-direction: column;
   min-height: 100vh;
   padding-left: 0.6rem;
   padding-right: 0.6rem;
@@ -589,6 +604,9 @@ button.kakaoButton {
 .panel p span {
   color: #fff;
 }
+#section1.panel > div {
+  position: relative;
+}
 #section1.panel h1 {
   color: #96e2ff;
 }
@@ -596,6 +614,15 @@ button.kakaoButton {
 #section1.panel p {
   color: #777;
   padding-top: 50px;
+}
+#section1.panel .ideaImg {
+  background: no-repeat url('../src/assets/insurance.svg') left bottom;
+  position: absolute;
+  width: 170px;
+  height: 210px;
+  background-size: contain;
+  left: -40px;
+  bottom: 0px;
 }
 
 #section2.panel p {
@@ -626,6 +653,8 @@ button.kakaoButton {
 }
 #section4.panel h1 {
   color: #96e2ff;
+  text-align: center;
+  font-size: 34px;
 }
 
 /* SCROLL DOWN */
@@ -650,6 +679,15 @@ button.kakaoButton {
   background-image: url('./assets/arrow-ico.svg');
   background-size: contain;
   background-repeat: no-repeat;
+}
+
+/* 프로필 사진 */
+.profileImg {
+  padding-bottom: 20px;
+}
+.profileImg img {
+  width: 200px;
+  height: auto;
 }
 
 .panel p strong,

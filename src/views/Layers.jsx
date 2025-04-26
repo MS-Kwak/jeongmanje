@@ -4,6 +4,9 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
 import TransitionContext from '../context/TransitionContext';
 import myVenta from './Venta';
+import useWindowControl from '../util/useWindowControl';
+import { fromHalfFloat } from 'three/src/extras/DataUtils.js';
+import profileImg from '../assets/photo-mattbomer.jpeg';
 
 export default function Layers() {
   // venta net 백그라운드
@@ -17,6 +20,10 @@ export default function Layers() {
   const { completed } = useContext(TransitionContext);
   const scrollTween = useRef();
   const snapTriggers = useRef([]);
+
+  // React에서 브라우저 창 제어하기: 새 창 열기부터 URL 추적까지
+  const { isWindowOpen, lastKnownUrl, openWindow, closeWindow, navigateTo } =
+    useWindowControl();
 
   const { contextSafe } = useGSAP(
     () => {
@@ -131,7 +138,9 @@ export default function Layers() {
             <span>GA 법인대리점</span>에 근무중입니다.
             <br />
             <br />
-            여러 보험사를 비교해서
+            여러 보험사를
+            <br />
+            비교해서
             <br />
             <span>최적에 보장</span>을
             <br />
@@ -139,6 +148,7 @@ export default function Layers() {
             <br />
             설계해드립니다.
           </p>
+          <div className="ideaImg"></div>
         </div>
       </section>
       <section id="section2" className="panel gray">
@@ -167,7 +177,7 @@ export default function Layers() {
           <p>
             "제 몸 상황에 맞는 보험을
             <br />
-            여러개 추천해주시니 믿음스러웠어요!"
+            여러개 추천해주시니 믿음직스러웠어요!"
           </p>
           <span>이*건님</span>
           <p>
@@ -180,11 +190,26 @@ export default function Layers() {
         </div>
       </section>
       <section id="section4" className="panel gray">
-        <h1>
-          아래의 폼을 작성해주시면 정만제가
-          <br />
-          연락드리도록 하겠습니다.
-        </h1>
+        <div>
+          <div className="profileImg">
+            <img src={profileImg} />
+          </div>
+          <h1>
+            아래 버튼을 클릭하여
+            <br />
+            상담 신청을 해주시면
+            <br />
+            정만제가 연락드리겠습니다.
+          </h1>
+          <div>
+            <button
+              className="naverFormButton"
+              onClick={() => openWindow('https://naver.me/5neyNriu')}
+            >
+              상담 신청하기
+            </button>
+          </div>
+        </div>
       </section>
     </main>
   );
