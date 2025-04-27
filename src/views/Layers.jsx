@@ -113,7 +113,7 @@ const Layers = () => {
     <main ref={main}>
       <section
         id="section0"
-        ref={!isMobile ? netRef : null}
+        ref={netRef}
         className={`panel gray ${isMobile ? `panel_mobile` : ''}`}
       >
         <div>
