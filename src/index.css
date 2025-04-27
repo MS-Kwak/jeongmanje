@@ -176,10 +176,12 @@ button.kakaoButton {
   background-color: #1a1a1a;
   color: #fff;
 }
-
 .panel.gray {
   background-color: #212124;
-  /* background-image: var(--gradient-macha); */
+}
+
+.panel li {
+  margin: 0;
 }
 .panel p {
   color: #96e2ff;
@@ -286,10 +288,6 @@ button.kakaoButton {
 .profileImg img {
   width: 200px;
   height: auto;
-}
-
-.panel li {
-  margin: 0;
 }
 
 /* checkboxes */

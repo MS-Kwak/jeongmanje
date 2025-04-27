@@ -9,7 +9,8 @@ const useIsMobile = () => {
         typeof window.navigator === 'undefined' ? '' : navigator.userAgent;
       const mobile =
         /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
-      setIsMobile(mobile || ('ontouchstart' in window && window.innerWidth <= 1024));
+      // setIsMobile(mobile || ('ontouchstart' in window && window.innerWidth <= 1024));
+      setIsMobile(mobile);
     };
 
     checkIsMobile();
