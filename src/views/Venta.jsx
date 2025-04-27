@@ -5,11 +5,21 @@ import useIsMobile from '../util/useIsMobile';
 
 const myVenta = (myRef, vantaType) => {
   const [vantaEffect, setVantaEffect] = useState(null);
-  // 모바일인지 확인하는 커스텀 훅
-  const isMobile = useIsMobile();
+  // 모바일인지 확인하는 커스텀 훅 직접 작성
+  const [isMobile, setIsMobile] = useState(false);
 
-  if (!isMobile) {
-    useEffect(() => {
+  useEffect(() => {
+    const checkIsMobile = () => {
+      const userAgent =
+        typeof window.navigator === 'undefined' ? '' : navigator.userAgent;
+      const mobile =
+        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
+      setIsMobile(mobile || ('ontouchstart' in window && window.innerWidth <= 1024));
+    };
+
+    checkIsMobile();
+
+    if (!isMobile) {
       if (!vantaEffect) {
         if (vantaType === 'NET') {
           setVantaEffect(
@@ -34,8 +44,8 @@ const myVenta = (myRef, vantaType) => {
       return () => {
         if (vantaEffect) vantaEffect.destroy();
       };
-    }, [vantaEffect]);
-  }
+    }
+  }, [vantaEffect]);
 };
 
 export default myVenta;

@@ -13,8 +13,8 @@ const useIsMobile = () => {
     };
 
     checkIsMobile();
-    window.addEventListener('resize', checkIsMobile);
-    return () => window.removeEventListener('resize', checkIsMobile);
+    // window.addEventListener('resize', checkIsMobile);
+    // return () => window.removeEventListener('resize', checkIsMobile);
   }, []);
 
   return isMobile;
