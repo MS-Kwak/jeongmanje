@@ -72,11 +72,6 @@ nav li a:active {
   color: rgba(200, 240, 255);
 }
 
-.section {
-  width: 100%;
-  height: 100vh;
-}
-
 .naverFormButton {
   color: #fff;
   border: 3px solid #fff;
@@ -604,6 +599,18 @@ button.kakaoButton {
 .panel p span {
   color: #fff;
 }
+
+.section {
+  width: 100%;
+  height: 100vh;
+}
+#section0.panel_mobile {
+  background: no-repeat url('./assets/mobile-background-section0.png') center center;
+  background-size: cover;
+  width: 100%;
+  height: auto;
+}
+
 #section1.panel > div {
   position: relative;
 }

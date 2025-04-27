@@ -1,25 +1,28 @@
-import React, { useState, useEffect, useContext, useRef } from 'react';
+import React, { useContext, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
 import TransitionContext from '../context/TransitionContext';
 import myVenta from './Venta';
 import useWindowControl from '../util/useWindowControl';
-import { fromHalfFloat } from 'three/src/extras/DataUtils.js';
 import profileImg from '../assets/photo-mattbomer.jpeg';
+// import ParticlesApp from './Particles';
+import useIsMobile from '../util/useIsMobile';
 
-export default function Layers() {
-  // venta net 백그라운드
-  const netRef = useRef(null);
-  const globeRef = useRef(null);
-
-  myVenta(netRef, 'NET');
-  myVenta(globeRef, 'GLOBE');
-
+const Layers = () => {
   const main = useRef();
   const { completed } = useContext(TransitionContext);
   const scrollTween = useRef();
   const snapTriggers = useRef([]);
+
+  // 모바일인지 확인하는 커스텀 훅
+  const isMobile = useIsMobile();
+
+  // venta net 백그라운드
+  const netRef = useRef(null);
+  const globeRef = useRef(null);
+  myVenta(netRef, 'NET');
+  myVenta(globeRef, 'GLOBE');
 
   // React에서 브라우저 창 제어하기: 새 창 열기부터 URL 추적까지
   const { isWindowOpen, lastKnownUrl, openWindow, closeWindow, navigateTo } =
@@ -108,7 +111,11 @@ export default function Layers() {
 
   return (
     <main ref={main}>
-      <section ref={netRef} className="panel gray">
+      <section
+        id="section0"
+        ref={!isMobile ? netRef : null}
+        className={`panel gray ${isMobile ? `panel_mobile` : ''}`}
+      >
         <div>
           <h1>
             미래를 위한 보험은
@@ -213,4 +220,6 @@ export default function Layers() {
       </section>
     </main>
   );
-}
+};
+
+export default Layers;
