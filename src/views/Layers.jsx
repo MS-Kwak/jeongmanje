@@ -2,12 +2,11 @@ import React, { useContext, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
+import { BrowserView, MobileView, isBrowser, isMobile } from 'react-device-detect';
 import TransitionContext from '../context/TransitionContext';
 import myVenta from './Venta';
-import useWindowControl from '../util/useWindowControl';
+// import useWindowControl from '../util/useWindowControl';
 import profileImg from '../assets/photo-mattbomer.jpeg';
-// import ParticlesApp from './Particles';
-import useIsMobile from '../util/useIsMobile';
 
 const Layers = () => {
   const main = useRef();
@@ -15,18 +14,20 @@ const Layers = () => {
   const scrollTween = useRef();
   const snapTriggers = useRef([]);
 
-  // 모바일인지 확인하는 커스텀 훅
-  const isMobile = useIsMobile();
-
   // venta net 백그라운드
   const netRef = useRef(null);
   const globeRef = useRef(null);
-  myVenta(netRef, 'NET');
-  myVenta(globeRef, 'GLOBE');
+  if (!isMobile) {
+    myVenta(netRef, 'NET');
+    myVenta(globeRef, 'GLOBE');
+  }
 
   // React에서 브라우저 창 제어하기: 새 창 열기부터 URL 추적까지
-  const { isWindowOpen, lastKnownUrl, openWindow, closeWindow, navigateTo } =
-    useWindowControl();
+  // const { openWindow } = useWindowControl();
+  const openWindow = (url, name, features = '') => {
+    const newWindow = window.open(url, name, features);
+    return newWindow;
+  };
 
   const { contextSafe } = useGSAP(
     () => {
@@ -114,7 +115,7 @@ const Layers = () => {
       <section
         id="section0"
         ref={netRef}
-        className={`panel gray ${isMobile ? `panel_mobile` : ''}`}
+        className={`panel gray ${isMobile ? 'panel_mobile' : ''}`}
       >
         <div>
           <h1>
@@ -171,12 +172,18 @@ const Layers = () => {
           <button className="kakaoButton"></button>
         </div>
       </section>
-      <section ref={globeRef} id="section3" className="panel dark">
+      <section
+        ref={globeRef}
+        id="section3"
+        className={`panel dark ${isMobile ? 'panel_mobile' : ''}`}
+      >
         <div>
           <h1>고객 후기</h1>
           <span>문*지님</span>
           <p>
-            "기존에 20만원 납부하던걸 15만원으로 줄였는데,
+            "기존에 20만원 납부하던걸
+            <br />
+            15만원으로 줄였는데,
             <br />
             받는 보장이 더 많아졌어요!"
           </p>
@@ -184,7 +191,9 @@ const Layers = () => {
           <p>
             "제 몸 상황에 맞는 보험을
             <br />
-            여러개 추천해주시니 믿음직스러웠어요!"
+            여러개 추천해주시니
+            <br />
+            믿음직스러웠어요!"
           </p>
           <span>이*건님</span>
           <p>
@@ -211,7 +220,7 @@ const Layers = () => {
           <div>
             <button
               className="naverFormButton"
-              onClick={() => openWindow('https://naver.me/5neyNriu')}
+              onClick={() => openWindow('https://naver.me/5neyNriu', '_blank')}
             >
               상담 신청하기
             </button>

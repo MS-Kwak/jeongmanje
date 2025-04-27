@@ -25,6 +25,9 @@ body {
   height: 100%;
   -webkit-overflow-scrolling: touch;
   overflow-scrolling: touch;
+  font-weight: 400;
+  margin: 0;
+  line-height: 1.5;
 }
 
 .header {
@@ -57,57 +60,16 @@ nav ul {
   list-style: none;
 }
 
-nav li a {
-  padding: 0.5rem 1rem 0.25rem;
-  color: #fff;
-  text-decoration: none;
-  font-size: 18px;
-  display: block;
-  font-weight: normal;
-}
-
 nav li a:hover,
 nav li a:active {
   text-decoration: none;
   color: rgba(200, 240, 255);
 }
 
-.naverFormButton {
-  color: #fff;
-  border: 3px solid #fff;
-  font-size: 20px;
-  padding: 20px 30px;
-  margin-top: 40px;
-}
-.naverFormButton:hover,
-.naverFormButton:active {
-  color: rgba(200, 240, 255);
-  border-color: rgba(200, 240, 255, 0.5);
-  font-family: 'NotoSansBold';
-  font-size: 21px;
-  font-weight: bolder;
-}
-
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-}
-
-/* colors */
-.gray,
-.grey {
-  background-color: var(--grey);
-}
-
-body {
-  color: var(--color-surface-white);
-  background-color: var(--dark);
-  font-family: Mori, sans-serif;
-  font-weight: 400;
-  margin: 0;
-  font-size: var(--step-0);
-  line-height: 1.5;
 }
 
 h1,
@@ -117,13 +79,6 @@ h4 {
   margin: 10px 0 10px 0;
   line-height: 1.5;
   font-family: 'NotoSansBold';
-}
-
-h1,
-.h1 {
-  font-size: 40px;
-  color: #fff;
-  text-align: left;
 }
 
 a {
@@ -183,12 +138,6 @@ button.kakaoButton {
 .panel li {
   margin: 0;
 }
-.panel p {
-  color: #96e2ff;
-  font-size: 26px;
-  padding-top: 20px;
-  text-align: right;
-}
 .panel p span {
   color: #fff;
 }
@@ -203,73 +152,28 @@ button.kakaoButton {
   width: 100%;
   height: auto;
 }
-
+#section3.panel_mobile {
+  background: no-repeat url('./assets/mobile-background-section3.png') center right;
+  background-size: cover;
+  width: 100%;
+  height: auto;
+}
 #section1.panel > div {
   position: relative;
 }
 #section1.panel h1 {
   color: #96e2ff;
 }
-
 #section1.panel p {
   color: #777;
   padding-top: 50px;
 }
-#section1.panel .ideaImg {
-  background: no-repeat url('../src/assets/insurance.svg') left bottom;
-  position: absolute;
-  width: 170px;
-  height: 210px;
-  background-size: contain;
-  left: -40px;
-  bottom: 0px;
-}
-
 #section2.panel p {
   color: #777;
   text-align: center;
 }
-#section3.panel p {
-  text-align: left;
-  font-size: 20px;
-  padding-top: 30px;
-}
-#section3.panel span {
-  font-size: 20px;
-  padding-top: 20px;
-  display: block;
-  position: relative;
-  text-align: left;
-}
-#section3.panel span::after {
-  content: '';
-  position: absolute;
-  background: no-repeat url('./assets/line.svg') left center;
-  width: 160px;
-  height: 120px;
-  background-size: contain;
-  top: 10px;
-  left: -10px;
-}
-#section4.panel h1 {
-  color: #96e2ff;
-  text-align: center;
-  font-size: 34px;
-}
 
 /* SCROLL DOWN */
-.scroll-down {
-  position: absolute;
-  bottom: 30px;
-  left: 50%;
-  transform: translate(-50%, 0);
-  color: rgba(255, 255, 255, 0.5);
-  font-weight: 400;
-  text-transform: uppercase;
-  font-size: 16px;
-  overflow: visible;
-  z-index: 1;
-}
 .scroll-down .arrow {
   position: relative;
   top: 0;
@@ -290,27 +194,249 @@ button.kakaoButton {
   height: auto;
 }
 
-/* checkboxes */
-/*  Add a :before to each label and style this as the checkbox you want to have */
-.checkbox label {
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  justify-content: center;
+/* 반응형 */
+h1,
+.h1 {
+  color: #fff;
+  text-align: left;
 }
-
-.checkbox label:before {
+nav li a {
+  padding: 0.5rem 1rem 0.25rem;
+  color: #fff;
+  text-decoration: none;
+  display: block;
+  font-weight: normal;
+}
+.panel p {
+  color: #96e2ff;
+  padding-top: 20px;
+  text-align: right;
+}
+.naverFormButton {
+  color: #fff;
+  border: 3px solid #fff;
+  padding: 20px 30px;
+  margin-top: 40px;
+}
+.naverFormButton:hover,
+.naverFormButton:active {
+  color: rgba(200, 240, 255);
+  border-color: rgba(200, 240, 255, 0.5);
+  font-family: 'NotoSansBold';
+  font-weight: bolder;
+}
+#section3.panel p {
+  text-align: left;
+  padding-top: 30px;
+}
+#section3.panel span {
+  padding-top: 20px;
+  display: block;
+  position: relative;
+  text-align: left;
+}
+#section4.panel h1 {
+  color: #96e2ff;
+  text-align: center;
+}
+.scroll-down {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 400;
+  text-transform: uppercase;
+  overflow: visible;
+  z-index: 1;
+}
+#section1.panel .ideaImg {
+  background: no-repeat url('../src/assets/insurance.svg') left bottom;
+  position: absolute;
+  background-size: contain;
+}
+#section3.panel span::after {
   content: '';
-  width: 20px;
-  height: 20px;
-  border-radius: 2px;
-  background: var(--light);
-  display: inline-block;
-  margin-right: 10px;
+  position: absolute;
+  background: no-repeat url('./assets/line.svg') left center;
+  background-size: contain;
 }
 
-.checkbox input[type='checkbox']:checked ~ label:before {
-  background: var(--green) no-repeat center;
-  background-size: 12px 12px;
-  background-image: url(data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTYuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjE2cHgiIGhlaWdodD0iMTZweCIgdmlld0JveD0iMCAwIDQ1LjcwMSA0NS43IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA0NS43MDEgNDUuNzsiIHhtbDpzcGFjZT0icHJlc2VydmUiPgo8Zz4KCTxnPgoJCTxwYXRoIGQ9Ik0yMC42ODcsMzguMzMyYy0yLjA3MiwyLjA3Mi01LjQzNCwyLjA3Mi03LjUwNSwwTDEuNTU0LDI2LjcwNGMtMi4wNzItMi4wNzEtMi4wNzItNS40MzMsMC03LjUwNCAgICBjMi4wNzEtMi4wNzIsNS40MzMtMi4wNzIsNy41MDUsMGw2LjkyOCw2LjkyN2MwLjUyMywwLjUyMiwxLjM3MiwwLjUyMiwxLjg5NiwwTDM2LjY0Miw3LjM2OGMyLjA3MS0yLjA3Miw1LjQzMy0yLjA3Miw3LjUwNSwwICAgIGMwLjk5NSwwLjk5NSwxLjU1NCwyLjM0NSwxLjU1NCwzLjc1MmMwLDEuNDA3LTAuNTU5LDIuNzU3LTEuNTU0LDMuNzUyTDIwLjY4NywzOC4zMzJ6IiBmaWxsPSIjRkZGRkZGIi8+Cgk8L2c+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPC9zdmc+Cg==);
+/* 모바일 */
+@media (max-width: 767px) {
+  h1,
+  .h1 {
+    font-size: 30px;
+  }
+  nav li a {
+    font-size: 15px;
+  }
+  .panel p {
+    font-size: 20px;
+  }
+  .naverFormButton {
+    font-size: 14px;
+  }
+  .naverFormButton:hover,
+  .naverFormButton:active {
+    font-size: 15px;
+  }
+  #section3.panel p {
+    font-size: 14px;
+  }
+  #section3.panel span {
+    font-size: 14px;
+  }
+  #section4.panel h1 {
+    font-size: 28px;
+  }
+  .scroll-down {
+    font-size: 13px;
+  }
+  #section1.panel .ideaImg {
+    width: 120px;
+    height: 160px;
+    left: -20px;
+    bottom: 0px;
+  }
+  #section3.panel span::after {
+    width: 120px;
+    height: 100px;
+    top: 10px;
+    left: -10px;
+  }
+}
+
+/* 테블릿 세로 */
+@media (min-width: 768px) and (max-width: 991px) {
+  h1,
+  .h1 {
+    font-size: 34px;
+  }
+  nav li a {
+    font-size: 16px;
+  }
+  .panel p {
+    font-size: 22px;
+  }
+  .naverFormButton {
+    font-size: 16px;
+  }
+  .naverFormButton:hover,
+  .naverFormButton:active {
+    font-size: 17px;
+  }
+  #section3.panel p {
+    font-size: 16px;
+  }
+  #section3.panel span {
+    font-size: 16px;
+  }
+  #section4.panel h1 {
+    font-size: 30px;
+  }
+  .scroll-down {
+    font-size: 14px;
+  }
+  #section1.panel .ideaImg {
+    width: 140px;
+    height: 180px;
+    left: -20px;
+    bottom: 0px;
+  }
+  #section3.panel span::after {
+    width: 140px;
+    height: 100px;
+    top: 12px;
+    left: -10px;
+  }
+}
+/* 테블릿 가로 */
+@media (min-width: 992px) and (max-width: 1199px) {
+  h1,
+  .h1 {
+    font-size: 37px;
+  }
+  nav li a {
+    font-size: 17px;
+  }
+  .panel p {
+    font-size: 24px;
+  }
+  .naverFormButton {
+    font-size: 18px;
+  }
+  .naverFormButton:hover,
+  .naverFormButton:active {
+    font-size: 19px;
+  }
+  #section3.panel p {
+    font-size: 18px;
+  }
+  #section3.panel span {
+    font-size: 18px;
+  }
+  #section4.panel h1 {
+    font-size: 32px;
+  }
+  .scroll-down {
+    font-size: 15px;
+  }
+  #section1.panel .ideaImg {
+    width: 160px;
+    height: 200px;
+    left: -30px;
+    bottom: 0px;
+  }
+  #section3.panel span::after {
+    width: 150px;
+    height: 110px;
+    top: 10px;
+    left: -10px;
+  }
+}
+
+/* 데스크탑 일반 */
+@media (min-width: 1200px) {
+  h1,
+  .h1 {
+    font-size: 40px;
+  }
+  nav li a {
+    font-size: 18px;
+  }
+  .panel p {
+    font-size: 26px;
+  }
+  .naverFormButton {
+    font-size: 20px;
+  }
+  .naverFormButton:hover,
+  .naverFormButton:active {
+    font-size: 21px;
+  }
+  #section3.panel p {
+    font-size: 20px;
+  }
+  #section3.panel span {
+    font-size: 20px;
+  }
+  #section4.panel h1 {
+    font-size: 34px;
+  }
+  .scroll-down {
+    font-size: 16px;
+  }
+  #section1.panel .ideaImg {
+    width: 170px;
+    height: 210px;
+    left: -40px;
+    bottom: 0px;
+  }
+  #section3.panel span::after {
+    width: 160px;
+    height: 120px;
+    top: 10px;
+    left: -10px;
+  }
 }
