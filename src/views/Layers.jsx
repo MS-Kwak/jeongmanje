@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from 'react';
+import React, { useContext, useRef, useEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
@@ -8,11 +8,37 @@ import myVenta from './Venta';
 // import useWindowControl from '../util/useWindowControl';
 import profileImg from '../assets/photo-mattbomer.jpeg';
 
+// kakao 기능 동작을 위해 넣어준다.
+const { Kakao } = window;
+const KAKAO_ADMIN_KEY = import.meta.env.VITE_KAKAO_ADMIN_KEY;
+const KAKAO_PUBLIC_KEY = '_xgxkEFn';
+
 const Layers = () => {
   const main = useRef();
   const { completed } = useContext(TransitionContext);
   const scrollTween = useRef();
   const snapTriggers = useRef([]);
+
+  useEffect(() => {
+    // 카카오 스크립트가 로드된 경우
+    if (Kakao) {
+      // 인증이 안되어있는 경우 인증한다.
+      if (!Kakao.isInitialized()) {
+        // init 해주기 전에 clean up 을 해준다.
+        Kakao.cleanup();
+        // 카카오에서 제공받은 Admin key를 넣어줌 -> .env파일에서 호출시킴
+        Kakao.init(KAKAO_ADMIN_KEY);
+        Kakao.isInitialized();
+      }
+    }
+  }, []);
+
+  const onClickChatChannel = () => {
+    Kakao.Channel.chat({
+      channelPublicId: KAKAO_PUBLIC_KEY, // 추가하려는 채널 Public ID 입력
+    });
+  };
+  
 
   // venta net 백그라운드
   const netRef = useRef(null);
@@ -169,7 +195,7 @@ const Layers = () => {
             <br />
             직접 상담해 드립니다.
           </p>
-          <button className="kakaoButton"></button>
+          <button onClick={onClickChatChannel} className="kakaoButton"></button>
         </div>
       </section>
       <section
