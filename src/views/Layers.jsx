@@ -2,9 +2,14 @@ import React, { useContext, useRef, useEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
-import { BrowserView, MobileView, isBrowser, isMobile } from 'react-device-detect';
+import {
+  BrowserView,
+  MobileView,
+  isBrowser,
+  isMobile,
+} from 'react-device-detect';
 import TransitionContext from '../context/TransitionContext';
-import myVenta from './Venta';
+import Vanta from './Venta'; // VantaEffect 컴포넌트 임포트
 // import useWindowControl from '../util/useWindowControl';
 import profileImg from '../assets/photo-mattbomer.jpeg';
 
@@ -38,103 +43,10 @@ const Layers = () => {
       channelPublicId: KAKAO_PUBLIC_KEY, // 추가하려는 채널 Public ID 입력
     });
   };
-  
 
   // venta net 백그라운드
   const netRef = useRef(null);
   const globeRef = useRef(null);
-  if (!isMobile) {
-    myVenta(netRef, 'NET');
-    myVenta(globeRef, 'GLOBE');
-  }
-
-  // React에서 브라우저 창 제어하기: 새 창 열기부터 URL 추적까지
-  // const { openWindow } = useWindowControl();
-  const openWindow = (url, name, features = '') => {
-    const newWindow = window.open(url, name, features);
-    return newWindow;
-  };
-
-  const { contextSafe } = useGSAP(
-    () => {
-      if (!completed) return;
-      let panels = gsap.utils.toArray('.panel'),
-        scrollStarts = [0],
-        snapScroll = (value) => value; // for converting a pixel-based scroll value to the closest panel scroll position
-
-      // create a ScrollTrigger for each panel that's only concerned about figuring out when its top hits the top of the viewport. We'll use the "start" of that ScrollTrigger to figure out snapping positions.
-      panels.forEach((panel, i) => {
-        snapTriggers.current[i] = ScrollTrigger.create({
-          trigger: panel,
-          start: 'top top',
-        });
-      });
-
-      // once all the triggers have calculated their start/end, create the snap function that'll accept an overall progress value for the overall page, and then return the closest panel snapping spot based on the direction of scroll
-      ScrollTrigger.addEventListener('refresh', () => {
-        scrollStarts = snapTriggers.current.map((trigger) => trigger.start); // build an Array with just the starting positions where each panel hits the top of the viewport
-        snapScroll = ScrollTrigger.snapDirectional(scrollStarts); // get a function that we can feed a pixel-based scroll value to and a direction, and then it'll spit back the closest snap position (in pixels)
-      });
-
-      ScrollTrigger.observe({
-        type: 'wheel,touch',
-        onChangeY(self) {
-          if (!scrollTween.current) {
-            // find the closest snapping spot based on the direction of scroll
-            let scroll = snapScroll(
-              self.scrollY() + self.deltaY,
-              self.deltaY > 0 ? 1 : -1
-            );
-            goToSection(scrollStarts.indexOf(scroll)); // scroll to the index of the associated panel
-          }
-        },
-      });
-
-      ScrollTrigger.refresh();
-    },
-    {
-      dependencies: [completed],
-      scope: main,
-      revertOnUpdate: true,
-    }
-  );
-
-  let links = gsap.utils.toArray('#parallax__nav ul li a');
-
-  links.forEach((link) => {
-    let element = document.querySelector(link.getAttribute('href'));
-    let linkST = ScrollTrigger.create({
-      trigger: element,
-      start: 'top top',
-    });
-
-    ScrollTrigger.create({
-      trigger: element,
-      start: 'top center',
-      end: 'bottom center',
-      onToggle: (self) => setActive(link),
-    });
-
-    link.addEventListener('click', (e) => {
-      e.preventDefault();
-      gsap.to(window, { duration: 1, scrollTo: linkST.start, overwrite: 'auto' });
-    });
-  });
-
-  function setActive(link) {
-    links.forEach((el) => el.classList.remove('active'));
-    link.classList.add('active');
-  }
-
-  const goToSection = contextSafe((i) => {
-    console.log('scroll to', i);
-    scrollTween.current = gsap.to(window, {
-      scrollTo: { y: snapTriggers.current[i].start, autoKill: false },
-      duration: 1,
-      onComplete: () => (scrollTween.current = null),
-      overwrite: true,
-    });
-  });
 
   return (
     <main ref={main}>
@@ -143,6 +55,8 @@ const Layers = () => {
         ref={netRef}
         className={`panel gray ${isMobile ? 'panel_mobile' : ''}`}
       >
+        <Vanta myRef={netRef} vantaType="NET" />{' '}
+        {/* Vanta 컴포넌트 렌더링 */}
         <div>
           <h1>
             미래를 위한 보험은
@@ -195,7 +109,10 @@ const Layers = () => {
             <br />
             직접 상담해 드립니다.
           </p>
-          <button onClick={onClickChatChannel} className="kakaoButton"></button>
+          <button
+            onClick={onClickChatChannel}
+            className="kakaoButton"
+          ></button>
         </div>
       </section>
       <section
@@ -203,6 +120,8 @@ const Layers = () => {
         id="section3"
         className={`panel dark ${isMobile ? 'panel_mobile' : ''}`}
       >
+        <Vanta myRef={globeRef} vantaType="GLOBE" />{' '}
+        {/* Vanta 컴포넌트 렌더링 */}
         <div>
           <h1>고객 후기</h1>
           <span>문*지님</span>
@@ -246,7 +165,9 @@ const Layers = () => {
           <div>
             <button
               className="naverFormButton"
-              onClick={() => openWindow('https://naver.me/5neyNriu', '_blank')}
+              onClick={() =>
+                openWindow('https://naver.me/5neyNriu', '_blank')
+              }
             >
               상담 신청하기
             </button>
