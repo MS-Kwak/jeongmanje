@@ -97,7 +97,7 @@ a:hover {
   margin-top: 100px;
 }
 .section-img.section-img2 img {
-  margin-top: 50px;
+  margin-top: 20px;
 }
 
 #section01 {
@@ -569,7 +569,7 @@ nav li a {
 /* 데스크탑 일반 */
 @media (min-width: 1200px) {
   .section-img img {
-    width: 70%;
+    width: 60%;
   }
   .logo {
     width: 250px;
