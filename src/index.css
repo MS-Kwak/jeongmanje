@@ -281,15 +281,15 @@ button.kakaoButton {
   height: 100vh;
 }
 #section01.panel_mobile {
-  background: no-repeat
-    url('./src/assets/mobile-background-section0.png') center center;
+  background: no-repeat url('./assets/mobile-background-section0.png')
+    center center;
   background-size: cover;
   width: 100%;
   height: auto;
 }
 #section3.panel_mobile {
-  background: no-repeat
-    url('./src/assets/mobile-background-section3.png') center right;
+  background: no-repeat url('./assets/mobile-background-section3.png')
+    center right;
   background-size: cover;
   width: 100%;
   height: auto;
