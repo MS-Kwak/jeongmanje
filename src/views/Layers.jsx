@@ -1,7 +1,10 @@
-import React, { useContext, useRef, useEffect } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useGSAP } from '@gsap/react';
+import React, {
+  useContext,
+  useRef,
+  useEffect,
+  useState,
+} from 'react';
+import { Typewriter } from 'react-simple-typewriter';
 import {
   BrowserView,
   MobileView,
@@ -9,20 +12,66 @@ import {
   isMobile,
 } from 'react-device-detect';
 import TransitionContext from '../context/TransitionContext';
-import Vanta from './Venta'; // VantaEffect 컴포넌트 임포트
-// import useWindowControl from '../util/useWindowControl';
-import profileImg from '../assets/photo-mattbomer.jpeg';
+import Vanta from './Venta';
+import logo from '../assets/logo.png';
+import image0 from '../assets/image0.jpg';
+import image1 from '../assets/image1.jpg';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useGSAP } from '@gsap/react';
+
+// MUI icons 임포트
+import PersonIcon from '@mui/icons-material/Person'; // 노무
+import AccountBalanceIcon from '@mui/icons-material/AccountBalance'; // 회계
+import DescriptionIcon from '@mui/icons-material/Description'; // 세무
+import GavelIcon from '@mui/icons-material/Gavel'; // 법무
+import DirectionsCarIcon from '@mui/icons-material/DirectionsCar'; // 사고대차
+import BuildIcon from '@mui/icons-material/Build'; // 손해사정
+import TrendingUpIcon from '@mui/icons-material/TrendingUp'; // 마케팅
+import SecurityIcon from '@mui/icons-material/Security'; // 보험
+
+// Import Swiper React components
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay } from 'swiper/modules';
+
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/autoplay';
+
+// 추가: 제휴사 로고 이미지 import
+import partner1 from '../assets/partner1.png';
+import partner2 from '../assets/partner2.png';
+import partner3 from '../assets/partner3.png';
+import partner4 from '../assets/partner4.png';
+import partner5 from '../assets/partner5.png';
 
 // kakao 기능 동작을 위해 넣어준다.
 const { Kakao } = window;
 const KAKAO_ADMIN_KEY = import.meta.env.VITE_KAKAO_ADMIN_KEY;
 const KAKAO_PUBLIC_KEY = '_xgxkEFn';
 
+gsap.registerPlugin(ScrollTrigger);
+
 const Layers = () => {
   const main = useRef();
+  const section0Ref = useRef(); // section0에 대한 ref 생성
+  const section01Ref = useRef(); // section1에 대한 ref 생성
+  const section2Ref = useRef(); // section2에 대한 ref 생성
   const { completed } = useContext(TransitionContext);
   const scrollTween = useRef();
   const snapTriggers = useRef([]);
+  const [hasTyped, setHasTyped] = useState(false); // 타이핑 효과 실행 여부 상태
+
+  const openWindow = (url, target) => {
+    const newWindow = window.open(url, target);
+    if (newWindow) {
+      newWindow.focus();
+    } else {
+      console.error(
+        '팝업 차단이 활성화되어 있습니다. 팝업을 허용해주세요.'
+      );
+    }
+  };
 
   useEffect(() => {
     // 카카오 스크립트가 로드된 경우
@@ -45,70 +94,246 @@ const Layers = () => {
   };
 
   // venta net 백그라운드
-  const netRef = useRef(null);
   const globeRef = useRef(null);
+
+  useGSAP(
+    () => {
+      // section0에 대한 ScrollTrigger 설정
+      gsap.to('.section0-content', {
+        yPercent: -30, // 스크롤 거리에 따라 위로 30% 이동
+        scrollTrigger: {
+          trigger: section0Ref.current,
+          start: 'top top',
+          end: 'bottom top',
+          scrub: 1, // 부드러운 스크롤 효과
+          markers: true, // 개발용 마커 (선택 사항)
+          invalidateOnRefresh: true, // 새로고침 시 초기화
+        },
+      });
+      gsap.to('.section01-content', {
+        yPercent: -75, // Adjust as needed
+        scrollTrigger: {
+          trigger: section01Ref.current,
+          start: 'top top',
+          end: 'bottom top',
+          scrub: 1, // 부드러운 스크롤 효과
+          markers: true, // 개발용 마커 (선택 사항)
+          pin: true,
+          invalidateOnRefresh: true,
+        },
+      });
+
+      // section2에 대한 애니메이션
+      gsap.fromTo(
+        '#section2 .inner-content', // section2 내부의 콘텐츠를 선택
+        { opacity: 0 }, // 초기 상태: 투명도 0
+        {
+          opacity: 1, // 최종 상태: 투명도 1
+          duration: 1, // 애니메이션 시간
+          ease: 'power3.out', // 부드러운 애니메이션 효과
+          scrollTrigger: {
+            trigger: '#section2', // section2가 트리거
+            start: '50% center', // section2의 top이 뷰포트의 center에 닿을 때 시작
+            end: 'bottom center', // section2의 bottom이 뷰포트의 center에 닿을 때 종료
+            scrub: true, // 스크롤에 따라 애니메이션
+            markers: true, // 마커 표시 (개발용)
+            invalidateOnRefresh: true,
+          },
+        }
+      );
+
+      // section2에 대한 ScrollTrigger 설정
+      ScrollTrigger.create({
+        trigger: section2Ref.current,
+        start: 'top top',
+        end: 'bottom top',
+        pin: true,
+        scrub: 1,
+        markers: true,
+      });
+    },
+    { scope: main }
+  );
 
   return (
     <main ref={main}>
       <section
+        ref={section0Ref} // section0에 ref 연결
         id="section0"
-        ref={netRef}
-        className={`panel gray ${isMobile ? 'panel_mobile' : ''}`}
+        className="panel dark"
       >
-        <Vanta myRef={netRef} vantaType="NET" />{' '}
-        {/* Vanta 컴포넌트 렌더링 */}
-        <div>
+        <div className="section0-content">
+          <img className="logo" src={logo} alt="정만제 로고" />
           <h1>
-            미래를 위한 보험은
-            <br />
-            필수로 준비를 하셔야됩니다
+            {/* hasTyped 상태가 false일 때만 Typewriter 실행 */}
+            {!hasTyped ? (
+              <Typewriter
+                words={['전문가와 연결되는 가장 빠른 길!']}
+                loop={1}
+                typeSpeed={100}
+                deleteSpeed={70}
+                onLoopDone={() => setHasTyped(true)}
+              />
+            ) : (
+              '전문가와 연결되는 가장 빠른 길!'
+            )}
           </h1>
           <p>
-            건강보험공단에 재정난으로 인해서
+            노무·회계·세무·손해사정·법무·사고대차·마케팅
             <br />
-            급여로 지원을 해주고있던 의료비가
+            분야의 전문가들과의 연결을 도와드립니다.
             <br />
-            비급여로 많이 변경되고있습니다.
+            <em>
+              ※ 일부 서비스는 외부 제휴 전문가/업체를 통해 연결됩니다.
+            </em>
           </p>
         </div>
         <div className="scroll-down">
-          Scroll down<div className="arrow"></div>
+          Scroll down
+          <div className="arrow"></div>
         </div>
       </section>
-      <section id="section1" className="panel dark">
-        <div>
-          <h1>왜 정만제냐?</h1>
-          <p>
-            <span>32개의 보험회사</span>를
-            <br />
-            전부 다 취급할 수있는
-            <br />
-            <span>GA 법인대리점</span>에 근무중입니다.
-            <br />
-            <br />
-            여러 보험사를
-            <br />
-            비교해서
-            <br />
-            <span>최적에 보장</span>을
-            <br />
-            <span>합리적인 보험료</span>로
-            <br />
-            설계해드립니다.
-          </p>
-          <div className="ideaImg"></div>
+      <section
+        ref={section01Ref}
+        id="section01"
+        className="panel panel_mobile"
+      >
+        <div className="section01-content">
+          <div className="section-img">
+            <img src={image0} alt="Description of image0" />
+          </div>
+          <div className="section01-text">
+            <span className="desc">
+              <PersonIcon />
+              <strong>노무 자문</strong>
+            </span>
+            <div>
+              제휴 노무사와 연결하여,
+              <br />
+              인사관리 및 노동 관련 자문을
+              <br />
+              받으실 수 있습니다.
+            </div>
+          </div>
+          <div className="section01-text">
+            <span className="desc">
+              <AccountBalanceIcon />
+              <strong>회계 지원</strong>
+            </span>
+            <div>
+              검증된 회계사/세무사 사무소와 연계해
+              <br />
+              회계관리 지원을 도와드립니다.
+            </div>
+          </div>
+          <div className="section01-text">
+            <span className="desc">
+              <DescriptionIcon />
+              <strong>세무 소개</strong>
+            </span>
+            <div>
+              종합소득세, 부가세 신고 등
+              <br />
+              세무 관련 전문가는
+              <br />
+              제휴처를 통해 소개해드립니다.
+            </div>
+          </div>
+          <div className="section01-text">
+            <span className="desc">
+              <GavelIcon />
+              <strong>법무 연결</strong>
+            </span>
+            <div>
+              사건에 따라 적합한
+              <br />
+              법무법인/변호사와 연결해드립니다.
+            </div>
+          </div>
+          <div className="section01-text">
+            <span className="desc">
+              <DirectionsCarIcon />
+              <strong>사고대차(렌트카)</strong>
+            </span>
+            <div>
+              사고 발생 시, 제휴 렌터카 업체와
+              <br />
+              빠르게 연결해드립니다.
+            </div>
+          </div>
+          <div className="section01-text">
+            <span className="desc">
+              <BuildIcon />
+              <strong>손해사정</strong>
+            </span>
+            <div>
+              보험사와의 원활한 손해 보상을 위해
+              <br />
+              전문가 네트워크를 제공합니다.
+            </div>
+          </div>
+          <div className="section01-text">
+            <span className="desc">
+              <TrendingUpIcon />
+              <strong>마케팅 협력</strong>
+            </span>
+            <div>
+              브랜딩, 광고 대행 등
+              <br />
+              마케팅 분야 전문 업체와 협력해드립니다.
+            </div>
+          </div>
+          <div className="section01-text">
+            <span className="desc">
+              <SecurityIcon />
+              <strong>보험 설계</strong>
+            </span>
+            <div>
+              (직접 제공) 다양한 보험상품을
+              <br />
+              상담/설계해드립니다.
+            </div>
+          </div>
+          {/* 제휴사 로고 Carousel */}
+          <Swiper
+            modules={[Autoplay]}
+            spaceBetween={50}
+            slidesPerView={3}
+            loop={true}
+            autoplay={{
+              delay: 2500,
+              disableOnInteraction: false,
+            }}
+            className="partner-swiper"
+          >
+            <SwiperSlide>
+              <img src={partner1} alt="Partner 1" />
+            </SwiperSlide>
+            <SwiperSlide>
+              <img src={partner2} alt="Partner 2" />
+            </SwiperSlide>
+            <SwiperSlide>
+              <img src={partner3} alt="Partner 3" />
+            </SwiperSlide>
+            <SwiperSlide>
+              <img src={partner4} alt="Partner 4" />
+            </SwiperSlide>
+            <SwiperSlide>
+              <img src={partner5} alt="Partner 5" />
+            </SwiperSlide>
+          </Swiper>
         </div>
       </section>
-      <section id="section2" className="panel gray">
-        <div>
+      <section
+        ref={section2Ref} // section2에 ref 연결
+        id="section2"
+        className="panel dark2"
+      >
+        <div className="section-img section-img2">
+          <img src={image1} />
+        </div>
+        <div className="inner-content">
           <h1>카카오 상담 신청하기</h1>
-          <p>
-            카카오채널을 통해
-            <br />
-            소상공인과 정책자금 관련 업무를
-            <br />
-            직접 상담해 드립니다.
-          </p>
           <button
             onClick={onClickChatChannel}
             className="kakaoButton"
@@ -120,7 +345,7 @@ const Layers = () => {
         id="section3"
         className={`panel dark ${isMobile ? 'panel_mobile' : ''}`}
       >
-        <Vanta myRef={globeRef} vantaType="GLOBE" />{' '}
+        <Vanta myRef={globeRef} vantaType="GLOBE" />
         {/* Vanta 컴포넌트 렌더링 */}
         <div>
           <h1>고객 후기</h1>
@@ -152,9 +377,7 @@ const Layers = () => {
       </section>
       <section id="section4" className="panel gray">
         <div>
-          <div className="profileImg">
-            <img src={profileImg} />
-          </div>
+          <img className="logo" src={logo} alt="정만제 로고" />
           <h1>
             아래 버튼을 클릭하여
             <br />

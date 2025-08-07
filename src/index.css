@@ -19,12 +19,11 @@ body * {
 
 html,
 body {
-  background-color: var(--dark);
+  background-color: #1a1a1a;
   color: var(--light);
   margin: 0;
   height: 100%;
   -webkit-overflow-scrolling: touch;
-  overflow-scrolling: touch;
   font-weight: 400;
   margin: 0;
   line-height: 1.5;
@@ -89,7 +88,132 @@ a:hover {
   text-decoration: none;
 }
 
-/* button:not('.box') { breaking for some reason in codepen? */
+/* 신규 추가 */
+#section0 {
+  position: relative; /* position 추가 */
+}
+.section-img img {
+  width: 60%;
+  margin-top: 100px;
+}
+.section-img.section-img2 img {
+  margin-top: 50px;
+}
+
+#section01 {
+  height: 100vh; /* 화면 높이로 설정 */
+  overflow: hidden; /* 넘치는 내용 숨김 */
+  padding: 20px;
+  position: relative;
+}
+#section01 svg {
+  fill: #5bd2ff;
+}
+
+.section01-content {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px;
+}
+
+.section01-content > div {
+  font-size: 1.2em;
+  line-height: 1.5;
+  margin-bottom: 50px;
+  color: #fff;
+}
+
+.section01-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 50px;
+}
+.desc {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+}
+
+.desc::before {
+  content: '';
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  width: 100px;
+  height: 2px;
+  background-color: #5bd2ff;
+  transform: translateX(-50%);
+}
+.desc strong {
+  font-size: 24px;
+}
+.section01-text div {
+  font-size: 32px;
+}
+
+#section2 {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative; /* GSAP가 absolute 포지셔닝을 사용하므로 필요 */
+  overflow: hidden;
+}
+
+#section2 .inner-content {
+  text-align: center;
+  position: relative; /* GSAP가 absolute 포지셔닝을 사용하므로 필요 */
+}
+
+#section2 .inner-content h1 {
+  text-align: center;
+}
+
+.swiper {
+  margin: 0;
+  height: 100px;
+  background: #fff;
+}
+.partner-swiper {
+  width: 100%; /* 스와이퍼 전체 너비 */
+  height: 150px; /* 스와이퍼 높이 */
+  display: flex;
+  align-items: center; /* 세로 중앙 정렬 */
+}
+
+.partner-swiper .swiper-slide {
+  width: auto; /* 슬라이드 콘텐츠에 맞게 너비 조정 */
+  height: auto; /* 슬라이드 콘텐츠에 맞게 높이 조정 */
+  display: flex;
+  justify-content: center; /* 가로 중앙 정렬 */
+  align-items: center; /* 세로 중앙 정렬 */
+}
+
+.partner-swiper .swiper-slide img {
+  max-width: 100%; /*이미지 최대 너비*/
+  max-height: 100px; /* 이미지 최대 높이 */
+  object-fit: contain; /* 이미지가 비율 유지하며 채우기 */
+}
+
+#sectionPartners {
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  padding: 10px 0;
+  overflow: hidden;
+}
+
+/* 신규 추가 */
+
 button {
   display: inline-block;
   outline: none;
@@ -109,7 +233,7 @@ button.kakaoButton {
   background-size: contain;
   padding-block: 0;
   padding-inline: 0;
-  margin-top: 70px;
+  margin-top: 20px;
 }
 
 /* panels */
@@ -127,8 +251,18 @@ button.kakaoButton {
   padding-right: 0.6rem;
 }
 
+.logo {
+  width: 300px;
+  height: auto;
+  margin-bottom: 20px;
+}
+
 .panel.dark {
   background-color: #1a1a1a;
+  color: #fff;
+}
+.panel.dark2 {
+  background-color: #000;
   color: #fff;
 }
 .panel.gray {
@@ -146,7 +280,7 @@ button.kakaoButton {
   width: 100%;
   height: 100vh;
 }
-#section0.panel_mobile {
+#section01.panel_mobile {
   background: no-repeat
     url('./src/assets/mobile-background-section0.png') center center;
   background-size: cover;
@@ -164,7 +298,7 @@ button.kakaoButton {
   position: relative;
 }
 #section1.panel h1 {
-  color: #96e2ff;
+  color: #5bd2ff;
 }
 #section1.panel p {
   color: #777;
@@ -180,8 +314,8 @@ button.kakaoButton {
   position: relative;
   top: 0;
   margin: 0 auto;
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   background-image: url('./assets/arrow-ico.svg');
   background-size: contain;
   background-repeat: no-repeat;
@@ -210,9 +344,14 @@ nav li a {
   font-weight: normal;
 }
 .panel p {
-  color: #96e2ff;
+  color: #5bd2ff;
   padding-top: 20px;
   text-align: right;
+}
+
+.panel p em {
+  font-size: 24px;
+  font-style: normal;
 }
 .naverFormButton {
   color: #fff;
@@ -238,7 +377,7 @@ nav li a {
   text-align: left;
 }
 #section4.panel h1 {
-  color: #96e2ff;
+  color: #5bd2ff;
   text-align: center;
 }
 .scroll-down {
@@ -256,6 +395,8 @@ nav li a {
   background: no-repeat url('../src/assets/insurance.svg') left bottom;
   position: absolute;
   background-size: contain;
+  width: 200px;
+  height: 200px;
 }
 #section3.panel span::after {
   content: '';
@@ -266,179 +407,215 @@ nav li a {
 
 /* 모바일 */
 @media (max-width: 767px) {
+  .section-img img {
+    width: 100%;
+  }
+  .logo {
+    width: 200px;
+  }
   h1,
   .h1 {
-    font-size: 30px;
+    font-size: 40px;
   }
   nav li a {
-    font-size: 15px;
+    font-size: 25px;
   }
   .panel p {
-    font-size: 20px;
+    font-size: 30px;
+  }
+  .panel p em {
+    font-size: 18px;
   }
   .naverFormButton {
-    font-size: 14px;
+    font-size: 24px;
   }
   .naverFormButton:hover,
   .naverFormButton:active {
-    font-size: 15px;
+    font-size: 25px;
   }
   #section3.panel p {
-    font-size: 17px;
+    font-size: 27px;
   }
   #section3.panel span {
-    font-size: 17px;
+    font-size: 27px;
   }
   #section4.panel h1 {
     font-size: 28px;
   }
   .scroll-down {
-    font-size: 13px;
+    font-size: 23px;
   }
   #section1.panel .ideaImg {
-    width: 120px;
-    height: 160px;
+    width: 200px;
+    height: 200px;
     left: -20px;
     bottom: 0px;
   }
   #section3.panel span::after {
     width: 120px;
     height: 100px;
-    top: 10px;
+    top: 20px;
     left: -10px;
   }
 }
 
 /* 테블릿 세로 */
 @media (min-width: 768px) and (max-width: 991px) {
+  .section-img img {
+    width: 90%;
+  }
+  .logo {
+    width: 250px;
+  }
   h1,
   .h1 {
-    font-size: 34px;
+    font-size: 44px;
   }
   nav li a {
-    font-size: 16px;
+    font-size: 26px;
   }
   .panel p {
-    font-size: 22px;
+    font-size: 32px;
+  }
+  .panel p em {
+    font-size: 20px;
   }
   .naverFormButton {
-    font-size: 16px;
+    font-size: 26px;
   }
   .naverFormButton:hover,
   .naverFormButton:active {
-    font-size: 17px;
+    font-size: 27px;
   }
   #section3.panel p {
-    font-size: 18px;
+    font-size: 28px;
   }
   #section3.panel span {
-    font-size: 18px;
+    font-size: 28px;
   }
   #section4.panel h1 {
     font-size: 30px;
   }
   .scroll-down {
-    font-size: 14px;
+    font-size: 24px;
   }
   #section1.panel .ideaImg {
-    width: 140px;
-    height: 180px;
+    width: 220px;
+    height: 220px;
     left: -20px;
     bottom: 0px;
   }
   #section3.panel span::after {
     width: 140px;
     height: 100px;
-    top: 12px;
+    top: 22px;
     left: -10px;
   }
 }
 /* 테블릿 가로 */
 @media (min-width: 992px) and (max-width: 1199px) {
+  .section-img img {
+    width: 80%;
+  }
+  .logo {
+    width: 250px;
+  }
   h1,
   .h1 {
-    font-size: 37px;
+    font-size: 47px;
   }
   nav li a {
-    font-size: 17px;
+    font-size: 27px;
   }
   .panel p {
-    font-size: 24px;
+    font-size: 34px;
+  }
+  .panel p em {
+    font-size: 22px;
   }
   .naverFormButton {
-    font-size: 18px;
+    font-size: 28px;
   }
   .naverFormButton:hover,
   .naverFormButton:active {
-    font-size: 19px;
+    font-size: 29px;
   }
   #section3.panel p {
-    font-size: 19px;
+    font-size: 29px;
   }
   #section3.panel span {
-    font-size: 19px;
+    font-size: 29px;
   }
   #section4.panel h1 {
     font-size: 32px;
   }
   .scroll-down {
-    font-size: 15px;
+    font-size: 25px;
   }
   #section1.panel .ideaImg {
-    width: 160px;
-    height: 200px;
+    width: 240px;
+    height: 240px;
     left: -30px;
     bottom: 0px;
   }
   #section3.panel span::after {
     width: 150px;
     height: 110px;
-    top: 10px;
+    top: 20px;
     left: -10px;
   }
 }
 
 /* 데스크탑 일반 */
 @media (min-width: 1200px) {
+  .section-img img {
+    width: 70%;
+  }
+  .logo {
+    width: 250px;
+  }
   h1,
   .h1 {
-    font-size: 40px;
+    font-size: 50px;
   }
   nav li a {
-    font-size: 18px;
+    font-size: 28px;
   }
   .panel p {
-    font-size: 26px;
+    font-size: 36px;
+  }
+  .panel p em {
+    font-size: 24px;
   }
   .naverFormButton {
-    font-size: 20px;
+    font-size: 30px;
   }
   .naverFormButton:hover,
   .naverFormButton:active {
-    font-size: 21px;
+    font-size: 31px;
   }
   #section3.panel p {
-    font-size: 20px;
+    font-size: 30px;
   }
   #section3.panel span {
-    font-size: 20px;
+    font-size: 30px;
   }
   #section4.panel h1 {
     font-size: 34px;
   }
   .scroll-down {
-    font-size: 16px;
+    font-size: 26px;
   }
   #section1.panel .ideaImg {
-    width: 170px;
-    height: 210px;
+    width: 260px;
+    height: 260px;
     left: -40px;
     bottom: 0px;
   }
   #section3.panel span::after {
     width: 160px;
     height: 120px;
-    top: 10px;
+    top: 20px;
     left: -10px;
   }
 }
