@@ -322,6 +322,13 @@ const Layers = () => {
               <img src={partner5} alt="Partner 5" />
             </SwiperSlide>
           </Swiper>
+          <div className="disclaimer">
+            ※ 본 페이지에서 제공하는 일부 서비스는 당사가 직접
+            수행하지 않으며, 전문 분야에 따라 외부 제휴
+            전문가/업체와의 연계를 통해 진행됩니다.
+            <br />※ 연결된 전문가와의 계약 및 법적 책임은 각 당사자
+            간에 있으며, 당사는 중개 역할만 수행합니다.
+          </div>
         </div>
       </section>
       <section
