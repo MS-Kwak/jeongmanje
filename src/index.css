@@ -213,7 +213,7 @@ a:hover {
 }
 
 .disclaimer {
-  color: #ddd;
+  color: #ddd !important;
 }
 
 /* 신규 추가 */
