@@ -3,14 +3,9 @@ import React, {
   useRef,
   useEffect,
   useState,
+  useMemo,
 } from 'react';
 import { Typewriter } from 'react-simple-typewriter';
-import {
-  BrowserView,
-  MobileView,
-  isBrowser,
-  isMobile,
-} from 'react-device-detect';
 import TransitionContext from '../context/TransitionContext';
 import Vanta from './Venta';
 import logo from '../assets/logo.png';
@@ -61,6 +56,43 @@ const Layers = () => {
   const scrollTween = useRef();
   const snapTriggers = useRef([]);
   const [hasTyped, setHasTyped] = useState(false); // 타이핑 효과 실행 여부 상태
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768); // 예시: 화면 너비가 768px 이하일 때 모바일로 간주
+    };
+
+    // 컴포넌트가 마운트될 때 초기 값 설정
+    handleResize();
+
+    // 화면 크기가 변경될 때마다 handleResize 함수 실행
+    window.addEventListener('resize', handleResize);
+
+    // 컴포넌트가 언마운트될 때 이벤트 리스너 제거
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  const typewriterComponent = useMemo(
+    () => (
+      <Typewriter
+        words={['전문가와 연결되는 가장 빠른 길!']}
+        loop={1}
+        cursor
+        cursorStyle="|"
+        typeSpeed={100}
+        deleteSpeed={50}
+        delaySpeed={1500}
+        onLoopDone={() => setHasTyped(true)} // 타이핑이 완료되면 상태 업데이트
+      />
+    ),
+    []
+  );
+
+  // hasTyped와 isMobile 값을 콘솔에 출력하여 확인
+  console.log('hasTyped:', hasTyped, 'isMobile:', isMobile);
 
   const openWindow = (url, target) => {
     const newWindow = window.open(url, target);
@@ -165,28 +197,43 @@ const Layers = () => {
         <div className="section0-content">
           <img className="logo" src={logo} alt="정만제 로고" />
           <h1>
-            {/* hasTyped 상태가 false일 때만 Typewriter 실행 */}
-            {!hasTyped ? (
-              <Typewriter
-                words={['전문가와 연결되는 가장 빠른 길!']}
-                loop={1}
-                typeSpeed={100}
-                deleteSpeed={70}
-                onLoopDone={() => setHasTyped(true)}
-              />
+            {!hasTyped && !isMobile ? (
+              typewriterComponent
             ) : (
-              '전문가와 연결되는 가장 빠른 길!'
+              <>
+                전문가와 연결되는
+                <br />
+                가장 빠른 길!
+              </>
             )}
           </h1>
-          <p>
-            노무·회계·세무·손해사정·법무·사고대차·마케팅
-            <br />
-            분야의 전문가들과의 연결을 도와드립니다.
-            <br />
-            <em>
-              ※ 일부 서비스는 외부 제휴 전문가/업체를 통해 연결됩니다.
-            </em>
-          </p>
+          {!isMobile ? (
+            <p>
+              노무·회계·세무·손해사정·법무·사고대차·마케팅
+              <br />
+              분야의 전문가들과의 연결을 도와드립니다.
+              <br />
+              <em>
+                ※ 일부 서비스는 외부 제휴 전문가/업체를 통해
+                연결됩니다.
+              </em>
+            </p>
+          ) : (
+            <p>
+              노무·회계·세무·손해사정
+              <br />
+              법무·사고대차·마케팅
+              <br />
+              분야의 전문가들과의
+              <br />
+              연결을 도와드립니다.
+              <br />
+              <em>
+                ※ 일부 서비스는 외부 제휴 전문가/업체를 통해
+                연결됩니다.
+              </em>
+            </p>
+          )}
         </div>
         <div className="scroll-down">
           Scroll down
