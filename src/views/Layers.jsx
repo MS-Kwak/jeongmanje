@@ -138,7 +138,7 @@ const Layers = () => {
           start: 'top top',
           end: 'bottom top',
           scrub: 1, // 부드러운 스크롤 효과
-          markers: true, // 개발용 마커 (선택 사항)
+          // markers: true, // 개발용 마커 (선택 사항)
           invalidateOnRefresh: true, // 새로고침 시 초기화
         },
       });
@@ -149,7 +149,7 @@ const Layers = () => {
           start: 'top top',
           end: 'bottom top',
           scrub: 1, // 부드러운 스크롤 효과
-          markers: true, // 개발용 마커 (선택 사항)
+          // markers: true, // 개발용 마커 (선택 사항)
           pin: true,
           invalidateOnRefresh: true,
         },
@@ -168,7 +168,7 @@ const Layers = () => {
             start: '50% center', // section2의 top이 뷰포트의 center에 닿을 때 시작
             end: 'bottom center', // section2의 bottom이 뷰포트의 center에 닿을 때 종료
             scrub: true, // 스크롤에 따라 애니메이션
-            markers: true, // 마커 표시 (개발용)
+            // markers: true, // 마커 표시 (개발용)
             invalidateOnRefresh: true,
           },
         }
@@ -181,7 +181,7 @@ const Layers = () => {
         end: 'bottom top',
         pin: true,
         scrub: 1,
-        markers: true,
+        // markers: true,
       });
     },
     { scope: main }
