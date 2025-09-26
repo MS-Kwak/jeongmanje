@@ -333,12 +333,12 @@ const Layers = () => {
           <div className="section01-text">
             <span className="desc">
               <SecurityIcon />
-              <strong>보험 설계</strong>
+              <strong>정책자금</strong>
             </span>
             <div>
-              (직접 제공) 다양한 보험상품을
+              사업자 각 상황에 맞는
               <br />
-              상담/설계해드립니다.
+              정책자금을 맞춤 컨설팅해드립니다.
             </div>
           </div>
           {/* 제휴사 로고 Carousel */}
@@ -405,17 +405,17 @@ const Layers = () => {
           <h1>고객 후기</h1>
           <span>문*지님</span>
           <p>
-            "기존에 20만원 납부하던걸
+            "기존에 못 받았던 정책자금을
             <br />
-            15만원으로 줄였는데,
+            전문가 덕분에 새로
             <br />
-            받는 보장이 더 많아졌어요!"
+            받을 수 있었어요!"
           </p>
           <span>이*혁님</span>
           <p>
-            "제 몸 상황에 맞는 보험을
+            "제 상황에 맞는 정책자금을
             <br />
-            여러개 추천해주시니
+            추천해주시니
             <br />
             믿음직스러웠어요!"
           </p>
