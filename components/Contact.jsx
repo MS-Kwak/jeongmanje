@@ -2,16 +2,42 @@
 
 import { useRef, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { Phone, MessageCircle, Send, CheckCircle, Loader2 } from 'lucide-react';
+import {
+  Phone,
+  MessageCircle,
+  Send,
+  CheckCircle,
+  Loader2,
+} from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent } from '@/components/ui/card';
 
-const creditScoreOptions = ['선택해주세요', '350점', '700점 이하', '700점 이상', '800점 이상'];
-const salesOptions = ['선택해주세요', '매출없음', '1억 미만', '1억 - 3억', '3억 - 5억', '5억 - 10억', '10억 이상'];
-const fundOptions = ['선택해주세요', '3천만원 이하', '3,000 - 5,000만원', '1억원 이상', '3억원 이상'];
+const creditScoreOptions = [
+  '선택해주세요',
+  '350점',
+  '700점 이하',
+  '700점 이상',
+  '800점 이상',
+];
+const salesOptions = [
+  '선택해주세요',
+  '매출없음',
+  '1억 미만',
+  '1억 - 3억',
+  '3억 - 5억',
+  '5억 - 10억',
+  '10억 이상',
+];
+const fundOptions = [
+  '선택해주세요',
+  '3천만원 이하',
+  '3,000 - 5,000만원',
+  '1억원 이상',
+  '3억원 이상',
+];
 
 export default function Contact() {
   const ref = useRef(null);
@@ -41,7 +67,7 @@ export default function Contact() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!formData.agreed) {
       alert('개인정보 수집 및 이용에 동의해주세요.');
       return;
@@ -51,8 +77,9 @@ export default function Contact() {
 
     try {
       // Google Sheets Web App URL (사용자가 설정해야 함)
-      const GOOGLE_SHEET_URL = process.env.NEXT_PUBLIC_GOOGLE_SHEET_URL;
-      
+      const GOOGLE_SHEET_URL =
+        process.env.NEXT_PUBLIC_GOOGLE_SHEET_URL;
+
       if (GOOGLE_SHEET_URL) {
         await fetch(GOOGLE_SHEET_URL, {
           method: 'POST',
@@ -82,14 +109,20 @@ export default function Contact() {
       });
     } catch (error) {
       console.error('Error submitting form:', error);
-      alert('제출 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+      alert(
+        '제출 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.'
+      );
     } finally {
       setIsSubmitting(false);
     }
   };
 
   return (
-    <section id="contact" className="py-24 md:py-32 relative overflow-hidden" ref={ref}>
+    <section
+      id="contact"
+      className="py-24 md:py-32 relative overflow-hidden"
+      ref={ref}
+    >
       {/* Background */}
       <div className="absolute inset-0 section-gradient-center" />
       <div className="absolute top-1/4 -right-40 w-80 h-80 bg-primary/10 rounded-full blur-3xl" />
@@ -107,7 +140,8 @@ export default function Contact() {
             무료 상담
           </span>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-foreground mb-6">
-            지금 바로 <span className="gradient-text">상담 신청</span>하세요
+            지금 바로 <span className="gradient-text">상담 신청</span>
+            하세요
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             확인 후 순차적으로 빠르게 연락 드리겠습니다
@@ -123,7 +157,7 @@ export default function Contact() {
             className="lg:col-span-1 space-y-6"
           >
             {/* Phone Card */}
-            <Card className="border-0 shadow-lg shadow-primary/10 bg-gradient-to-br from-primary to-accent text-white overflow-hidden">
+            <Card className="border-0 shadow-lg shadow-primary/10 bg-linear-to-br from-primary to-accent text-white overflow-hidden">
               <CardContent className="p-6">
                 <div className="flex items-center gap-4 mb-4">
                   <div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center">
@@ -148,7 +182,9 @@ export default function Contact() {
                     <MessageCircle className="w-6 h-6" />
                   </div>
                   <div>
-                    <p className="text-sm opacity-80">카카오톡 상담</p>
+                    <p className="text-sm opacity-80">
+                      카카오톡 상담
+                    </p>
                     <p className="text-lg font-bold">바로가기 →</p>
                   </div>
                 </div>
@@ -157,18 +193,20 @@ export default function Contact() {
 
             {/* Info */}
             <div className="p-6 rounded-2xl bg-muted/50">
-              <h4 className="font-bold text-foreground mb-3">상담 안내</h4>
+              <h4 className="font-bold text-foreground mb-3">
+                상담 안내
+              </h4>
               <ul className="space-y-2 text-sm text-muted-foreground">
                 <li className="flex items-start gap-2">
-                  <CheckCircle className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                  <CheckCircle className="w-4 h-4 text-primary mt-0.5 shrink-0" />
                   무료 상담으로 부담 없이 문의하세요
                 </li>
                 <li className="flex items-start gap-2">
-                  <CheckCircle className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                  <CheckCircle className="w-4 h-4 text-primary mt-0.5 shrink-0" />
                   접수 후 1영업일 이내 연락드립니다
                 </li>
                 <li className="flex items-start gap-2">
-                  <CheckCircle className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                  <CheckCircle className="w-4 h-4 text-primary mt-0.5 shrink-0" />
                   기업 맞춤형 정책자금 안내
                 </li>
               </ul>
@@ -199,7 +237,10 @@ export default function Contact() {
                     <p className="text-muted-foreground mb-6">
                       빠른 시일 내에 연락드리겠습니다.
                     </p>
-                    <Button onClick={() => setIsSubmitted(false)} variant="outline">
+                    <Button
+                      onClick={() => setIsSubmitted(false)}
+                      variant="outline"
+                    >
                       추가 문의하기
                     </Button>
                   </motion.div>
@@ -261,7 +302,9 @@ export default function Contact() {
 
                       {/* Location */}
                       <div className="space-y-2">
-                        <Label htmlFor="location">사업장 소재지</Label>
+                        <Label htmlFor="location">
+                          사업장 소재지
+                        </Label>
                         <Input
                           id="location"
                           name="location"
@@ -273,7 +316,9 @@ export default function Contact() {
 
                       {/* Credit Score */}
                       <div className="space-y-2">
-                        <Label htmlFor="creditScore">NICE기준 신용점수</Label>
+                        <Label htmlFor="creditScore">
+                          NICE기준 신용점수
+                        </Label>
                         <select
                           id="creditScore"
                           name="creditScore"
@@ -345,8 +390,11 @@ export default function Contact() {
                         개인정보 수집 및 이용 동의
                       </h5>
                       <p className="text-xs text-muted-foreground mb-3">
-                        수집항목: 이름, 연락처, 회사명, 업종, 사업장 소재지, 매출정보<br />
-                        수집·이용 목적: 상담 신청 및 상담 결과 회신<br />
+                        수집항목: 이름, 연락처, 회사명, 업종, 사업장
+                        소재지, 매출정보
+                        <br />
+                        수집·이용 목적: 상담 신청 및 상담 결과 회신
+                        <br />
                         보유·이용 기간: 수집일로부터 3개월 후 삭제
                       </p>
                       <label className="flex items-center gap-2 cursor-pointer">
@@ -392,4 +440,3 @@ export default function Contact() {
     </section>
   );
 }
-
