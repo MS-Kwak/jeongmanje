@@ -69,7 +69,7 @@ export default function Benefits() {
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
   return (
-    <section id="benefits" className="py-24 md:py-32 bg-gradient-to-b from-background to-muted/30" ref={ref}>
+    <section id="benefits" className="py-24 md:py-32 section-gradient-down" ref={ref}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <motion.div

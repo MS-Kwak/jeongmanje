@@ -1,6 +1,12 @@
 'use client';
 
-import { Phone, Clock, CheckCircle, Star, TrendingUp } from 'lucide-react';
+import {
+  Phone,
+  Clock,
+  CheckCircle,
+  Star,
+  TrendingUp,
+} from 'lucide-react';
 
 const marqueeItems = [
   { icon: Phone, text: '무료상담 진행중' },
@@ -17,7 +23,7 @@ const marqueeItems = [
 
 export default function Marquee() {
   return (
-    <div className="fixed top-0 left-0 right-0 z-[60] bg-gradient-to-r from-[oklch(0.50_0.22_250)] via-[oklch(0.55_0.22_250)] to-[oklch(0.50_0.22_250)] text-white overflow-hidden">
+    <div className="fixed top-0 left-0 right-0 z-60 bg-linear-to-r from-[oklch(0.50_0.22_250)] via-[oklch(0.55_0.22_250)] to-[oklch(0.50_0.22_250)] text-white overflow-hidden">
       <div className="flex animate-marquee whitespace-nowrap py-2.5">
         {[...marqueeItems, ...marqueeItems].map((item, index) => {
           const Icon = item.icon;
@@ -35,4 +41,3 @@ export default function Marquee() {
     </div>
   );
 }
-

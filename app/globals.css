@@ -325,3 +325,29 @@
   animation: pulse-ring 2s ease-out infinite;
   z-index: -1;
 }
+
+/* Section background gradients */
+.section-gradient-down {
+  background: linear-gradient(
+    to bottom,
+    var(--background),
+    oklch(0.96 0.01 240 / 0.3)
+  );
+}
+
+.section-gradient-up {
+  background: linear-gradient(
+    to bottom,
+    oklch(0.96 0.01 240 / 0.3),
+    var(--background)
+  );
+}
+
+.section-gradient-center {
+  background: linear-gradient(
+    to bottom,
+    var(--background),
+    oklch(0.55 0.22 250 / 0.05),
+    var(--background)
+  );
+}

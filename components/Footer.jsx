@@ -33,10 +33,11 @@ export default function Footer() {
               </span>
             </Link>
             <p className="text-white/60 text-sm leading-relaxed max-w-md mb-6">
-              전문가들이 대표님의 사업에 딱 맞는 정책자금을 찾아드립니다.
-              성공 시에만 비용이 발생하는 100% 후불제 컨설팅으로 안심하고 상담받으세요.
+              전문가들이 대표님의 사업에 딱 맞는 정책자금을
+              찾아드립니다. 성공 시에만 비용이 발생하는 100% 후불제
+              컨설팅으로 안심하고 상담받으세요.
             </p>
-            
+
             {/* Contact Info */}
             <div className="space-y-3">
               <div className="flex items-center gap-3 text-white/80">
@@ -48,7 +49,7 @@ export default function Footer() {
                 <span>이메일 문의</span>
               </div>
               <div className="flex items-start gap-3 text-white/80">
-                <MapPin className="w-5 h-5 text-primary flex-shrink-0" />
+                <MapPin className="w-5 h-5 text-primary shrink-0" />
                 <span>사업장 주소</span>
               </div>
             </div>
@@ -73,7 +74,9 @@ export default function Footer() {
 
           {/* Business Info */}
           <div>
-            <h4 className="text-lg font-semibold mb-4">사업자 정보</h4>
+            <h4 className="text-lg font-semibold mb-4">
+              사업자 정보
+            </h4>
             <ul className="space-y-2 text-sm text-white/60">
               <li>회사명: 회사명</li>
               <li>대표자명: 대표자명</li>
@@ -86,13 +89,20 @@ export default function Footer() {
         <div className="py-6 border-t border-white/10">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-white/40 text-sm">
-              © {new Date().getFullYear()} 회사명. All Rights Reserved.
+              © {new Date().getFullYear()} 회사명. All Rights
+              Reserved.
             </p>
             <div className="flex items-center gap-6">
-              <Link href="#" className="text-white/40 hover:text-white/80 text-sm transition-colors">
+              <Link
+                href="#"
+                className="text-white/40 hover:text-white/80 text-sm transition-colors"
+              >
                 개인정보처리방침
               </Link>
-              <Link href="#" className="text-white/40 hover:text-white/80 text-sm transition-colors">
+              <Link
+                href="#"
+                className="text-white/40 hover:text-white/80 text-sm transition-colors"
+              >
                 이용약관
               </Link>
             </div>
@@ -102,4 +112,3 @@ export default function Footer() {
     </footer>
   );
 }
-

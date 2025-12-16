@@ -2,13 +2,37 @@
 
 import { useRef, useEffect, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { Building2, TrendingUp, Users, Award, Coffee, Monitor, Factory, Truck } from 'lucide-react';
+import {
+  Building2,
+  TrendingUp,
+  Users,
+  Award,
+  Coffee,
+  Monitor,
+  Factory,
+  Truck,
+} from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 
 const stats = [
-  { value: 3000, suffix: '건+', label: '정책자금 성공사례', icon: Award },
-  { value: 95, suffix: '%', label: '자금조달 성공률', icon: TrendingUp },
-  { value: 87, suffix: '%', label: '추가 자금조달 성공률', icon: Users },
+  {
+    value: 3000,
+    suffix: '건+',
+    label: '정책자금 성공사례',
+    icon: Award,
+  },
+  {
+    value: 95,
+    suffix: '%',
+    label: '자금조달 성공률',
+    icon: TrendingUp,
+  },
+  {
+    value: 87,
+    suffix: '%',
+    label: '추가 자금조달 성공률',
+    icon: Users,
+  },
 ];
 
 const cases = [
@@ -96,7 +120,8 @@ function Counter({ value, suffix }) {
 
   return (
     <span ref={ref} className="whitespace-nowrap">
-      {count.toLocaleString()}{suffix}
+      {count.toLocaleString()}
+      {suffix}
     </span>
   );
 }
@@ -106,7 +131,11 @@ export default function Success() {
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
   return (
-    <section id="success" className="py-16 md:py-24 lg:py-32 bg-gradient-to-b from-muted/30 to-background" ref={ref}>
+    <section
+      id="success"
+      className="py-16 md:py-24 lg:py-32 section-gradient-up"
+      ref={ref}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <motion.div
@@ -140,7 +169,10 @@ export default function Success() {
                 key={stat.label}
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
+                transition={{
+                  duration: 0.5,
+                  delay: 0.3 + index * 0.1,
+                }}
               >
                 <Card className="h-full text-center p-4 sm:p-6 md:p-8 border-0 shadow-lg shadow-primary/5 bg-white/80 backdrop-blur-sm overflow-hidden relative group">
                   <CardContent className="p-0 relative z-10 flex flex-col items-center justify-center h-full">
@@ -148,7 +180,10 @@ export default function Success() {
                       <Icon className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 text-primary" />
                     </div>
                     <div className="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-black text-primary mb-1 md:mb-2">
-                      <Counter value={stat.value} suffix={stat.suffix} />
+                      <Counter
+                        value={stat.value}
+                        suffix={stat.suffix}
+                      />
                     </div>
                     <p className="text-[10px] sm:text-xs md:text-sm text-muted-foreground font-medium leading-tight">
                       {stat.label}
@@ -175,11 +210,11 @@ export default function Success() {
           {/* 모바일: 1열, 태블릿: 2열, 데스크탑: 3열 - 6개로 모든 그리드에 딱 맞음 */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
             {cases.map((caseItem, index) => (
-              <CaseCard 
-                key={caseItem.title} 
-                caseItem={caseItem} 
-                index={index} 
-                isInView={isInView} 
+              <CaseCard
+                key={caseItem.title}
+                caseItem={caseItem}
+                index={index}
+                isInView={isInView}
                 delay={0.5}
               />
             ))}
@@ -193,7 +228,7 @@ export default function Success() {
 // 통일된 케이스 카드 컴포넌트
 function CaseCard({ caseItem, index, isInView, delay }) {
   const Icon = caseItem.icon;
-  
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -204,12 +239,18 @@ function CaseCard({ caseItem, index, isInView, delay }) {
         <CardContent className="p-4 sm:p-5 md:p-6">
           {/* Header */}
           <div className="flex items-center gap-3 mb-3 md:mb-4">
-            <div className={`flex-shrink-0 w-10 h-10 md:w-12 md:h-12 rounded-lg md:rounded-xl bg-gradient-to-br ${caseItem.color} flex items-center justify-center`}>
+            <div
+              className={`shrink-0 w-10 h-10 md:w-12 md:h-12 rounded-lg md:rounded-xl bg-linear-to-br ${caseItem.color} flex items-center justify-center`}
+            >
               <Icon className="w-5 h-5 md:w-6 md:h-6 text-white" />
             </div>
             <div className="min-w-0 flex-1">
-              <h4 className="font-bold text-foreground text-sm md:text-base truncate">{caseItem.title}</h4>
-              <span className="text-xs md:text-sm text-muted-foreground">{caseItem.year}</span>
+              <h4 className="font-bold text-foreground text-sm md:text-base truncate">
+                {caseItem.title}
+              </h4>
+              <span className="text-xs md:text-sm text-muted-foreground">
+                {caseItem.year}
+              </span>
             </div>
           </div>
 
@@ -217,18 +258,28 @@ function CaseCard({ caseItem, index, isInView, delay }) {
           <div className="space-y-2 md:space-y-3 text-xs md:text-sm">
             <div className="p-2 md:p-3 rounded-lg bg-muted/50">
               <span className="text-muted-foreground">상황: </span>
-              <span className="text-foreground">{caseItem.description}</span>
+              <span className="text-foreground">
+                {caseItem.description}
+              </span>
             </div>
             <div className="p-2 md:p-3 rounded-lg bg-primary/5">
-              <span className="text-primary font-medium">솔루션: </span>
-              <span className="text-foreground">{caseItem.solution}</span>
+              <span className="text-primary font-medium">
+                솔루션:{' '}
+              </span>
+              <span className="text-foreground">
+                {caseItem.solution}
+              </span>
             </div>
           </div>
 
           {/* Result */}
           <div className="mt-3 md:mt-4 pt-3 md:pt-4 border-t border-border">
-            <span className="text-[10px] md:text-xs text-muted-foreground uppercase tracking-wider">결과</span>
-            <p className={`text-base md:text-lg font-bold bg-gradient-to-r ${caseItem.color} bg-clip-text text-transparent`}>
+            <span className="text-[10px] md:text-xs text-muted-foreground uppercase tracking-wider">
+              결과
+            </span>
+            <p
+              className={`text-base md:text-lg font-bold bg-linear-to-r ${caseItem.color} bg-clip-text text-transparent`}
+            >
               {caseItem.result}
             </p>
           </div>

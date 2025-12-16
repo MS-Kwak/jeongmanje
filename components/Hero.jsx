@@ -39,19 +39,19 @@ export default function Hero() {
       {/* Floating Elements */}
       <motion.div
         style={{ y }}
-        className="absolute top-1/4 left-[10%] w-20 h-20 md:w-32 md:h-32 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 blur-2xl"
+        className="absolute top-1/4 left-[10%] w-20 h-20 md:w-32 md:h-32 rounded-full bg-linear-to-br from-primary/20 to-accent/20 blur-2xl"
       />
       <motion.div
         style={{
           y: useTransform(scrollYProgress, [0, 1], ['0%', '30%']),
         }}
-        className="absolute top-1/3 right-[15%] w-24 h-24 md:w-40 md:h-40 rounded-full bg-gradient-to-br from-accent/15 to-primary/15 blur-3xl"
+        className="absolute top-1/3 right-[15%] w-24 h-24 md:w-40 md:h-40 rounded-full bg-linear-to-br from-accent/15 to-primary/15 blur-3xl"
       />
       <motion.div
         style={{
           y: useTransform(scrollYProgress, [0, 1], ['0%', '70%']),
         }}
-        className="absolute bottom-1/4 left-[20%] w-16 h-16 md:w-24 md:h-24 rounded-full bg-gradient-to-br from-primary/10 to-transparent blur-2xl"
+        className="absolute bottom-1/4 left-[20%] w-16 h-16 md:w-24 md:h-24 rounded-full bg-linear-to-br from-primary/10 to-transparent blur-2xl"
       />
 
       {/* Content - flex-1로 남은 공간 채우기 */}

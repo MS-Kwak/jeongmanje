@@ -3,12 +3,18 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Menu, ChevronRight, FileText, Award, MessageCircle } from 'lucide-react';
+import {
+  Menu,
+  ChevronRight,
+  FileText,
+  Award,
+  MessageCircle,
+} from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { 
-  Sheet, 
-  SheetContent, 
-  SheetTrigger, 
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
   SheetClose,
   SheetTitle,
   SheetDescription,
@@ -44,7 +50,10 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 sm:gap-3 group">
+          <Link
+            href="/"
+            className="flex items-center gap-2 sm:gap-3 group"
+          >
             <div className="relative w-9 h-9 sm:w-10 sm:h-10 md:w-12 md:h-12 transition-transform group-hover:scale-105">
               <Image
                 src="/images/logo.svg"
@@ -74,10 +83,13 @@ export default function Header() {
 
           {/* Desktop CTA Button */}
           <div className="hidden lg:flex items-center gap-3">
-            <Button asChild className="relative overflow-hidden group">
+            <Button
+              asChild
+              className="relative overflow-hidden group"
+            >
               <Link href="#contact">
                 <span className="relative z-10">무료상담 신청</span>
-                <div className="absolute inset-0 bg-gradient-to-r from-primary to-accent transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
+                <div className="absolute inset-0 bg-linear-to-r from-primary to-accent transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
               </Link>
             </Button>
           </div>
@@ -86,19 +98,25 @@ export default function Header() {
           <div className="flex lg:hidden items-center">
             <Sheet>
               <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className="h-9 w-9">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="h-9 w-9"
+                >
                   <Menu className="w-5 h-5" />
                   <span className="sr-only">메뉴 열기</span>
                 </Button>
               </SheetTrigger>
-              <SheetContent 
-                side="right" 
+              <SheetContent
+                side="right"
                 className="w-[300px] sm:w-[350px] p-0"
               >
                 {/* 접근성을 위한 숨겨진 타이틀 */}
                 <SheetTitle className="sr-only">메뉴</SheetTitle>
-                <SheetDescription className="sr-only">사이트 네비게이션 메뉴</SheetDescription>
-                
+                <SheetDescription className="sr-only">
+                  사이트 네비게이션 메뉴
+                </SheetDescription>
+
                 {/* Header - 흰색 배경 */}
                 <div className="p-6 bg-white border-b border-border">
                   <div className="flex items-center gap-3">
@@ -111,12 +129,16 @@ export default function Header() {
                       />
                     </div>
                     <div>
-                      <h2 className="text-lg font-bold text-foreground">정책자금 컨설팅</h2>
-                      <p className="text-sm text-muted-foreground">전문가와 함께하세요</p>
+                      <h2 className="text-lg font-bold text-foreground">
+                        정책자금 컨설팅
+                      </h2>
+                      <p className="text-sm text-muted-foreground">
+                        전문가와 함께하세요
+                      </p>
                     </div>
                   </div>
                 </div>
-                
+
                 {/* Navigation */}
                 <nav className="p-4">
                   <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3 px-2">
@@ -134,7 +156,9 @@ export default function Header() {
                             <div className="w-10 h-10 rounded-lg bg-muted flex items-center justify-center group-hover:bg-primary/10 transition-colors">
                               <Icon className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
                             </div>
-                            <span className="font-medium flex-1">{item.name}</span>
+                            <span className="font-medium flex-1">
+                              {item.name}
+                            </span>
                             <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
                           </Link>
                         </SheetClose>
@@ -142,12 +166,15 @@ export default function Header() {
                     })}
                   </div>
                 </nav>
-                
+
                 {/* Bottom CTA */}
                 <div className="absolute bottom-0 left-0 right-0 p-4 bg-muted/50 border-t">
                   <SheetClose asChild>
                     <Button asChild className="w-full" size="lg">
-                      <Link href="#contact" className="flex items-center justify-center gap-2">
+                      <Link
+                        href="#contact"
+                        className="flex items-center justify-center gap-2"
+                      >
                         <MessageCircle className="w-5 h-5" />
                         무료상담 신청하기
                       </Link>
