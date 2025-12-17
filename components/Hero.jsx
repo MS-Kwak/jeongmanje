@@ -76,7 +76,7 @@ export default function Hero() {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
             </span>
-            2025년 정책자금 신청 접수 중
+            2026년 정책자금 신청 접수 중
           </motion.div>
 
           {/* Main Heading */}
