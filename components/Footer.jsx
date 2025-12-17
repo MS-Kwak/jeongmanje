@@ -135,7 +135,7 @@ export default function Footer() {
         >
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-white/40 text-sm">
-              © {new Date().getFullYear()} 회사명. All Rights
+              © {new Date().getFullYear()} 정솔루션. All Rights
               Reserved.
             </p>
             <div className="flex items-center gap-6">
