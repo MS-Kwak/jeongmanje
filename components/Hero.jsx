@@ -124,7 +124,7 @@ export default function Hero() {
               딱 맞는 자금
             </span>
             을 찾아드립니다
-            <br className="hidden sm:block" />
+            <br />
             <span className="text-foreground font-medium">
               성공 시에만 비용 발생하는 100% 후불제
             </span>
