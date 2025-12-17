@@ -84,23 +84,33 @@ export default function Benefits() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-4">
+        <div className="text-center mb-16">
+          <motion.span
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={isInView ? { opacity: 1, scale: 1 } : {}}
+            transition={{ duration: 0.5 }}
+            className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-4"
+          >
             WHY 정책자금?
-          </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-foreground mb-6">
+          </motion.span>
+          <motion.h2
+            initial={{ opacity: 0, y: 30 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="text-3xl sm:text-4xl md:text-5xl font-black text-foreground mb-6"
+          >
             왜 <span className="gradient-text">정책자금</span>인가요?
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="text-lg text-muted-foreground max-w-2xl mx-auto"
+          >
             정부가 지원하는 정책자금은 일반 대출과 비교할 수 없는
             혜택을 제공합니다
-          </p>
-        </motion.div>
+          </motion.p>
+        </div>
 
         {/* Benefits Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
@@ -109,30 +119,54 @@ export default function Benefits() {
             return (
               <motion.div
                 key={benefit.title}
-                initial={{ opacity: 0, y: 40 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
+                initial={{ opacity: 0, y: 50, scale: 0.9 }}
+                animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
+                transition={{ 
+                  duration: 0.5, 
+                  delay: 0.2 + index * 0.15,
+                  type: 'spring',
+                  stiffness: 100
+                }}
+                whileHover={{ y: -8 }}
               >
-                <Card className="h-full card-hover border-0 shadow-lg shadow-primary/5 bg-white/80 backdrop-blur-sm overflow-hidden group">
+                <Card className="h-full border-0 shadow-lg shadow-primary/5 bg-white/80 backdrop-blur-sm overflow-hidden group hover:shadow-xl hover:shadow-primary/10 transition-shadow duration-300">
                   <CardContent className="p-6 relative">
                     {/* Icon */}
-                    <div
-                      className={`w-14 h-14 rounded-2xl bg-linear-to-br ${benefit.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}
+                    <motion.div
+                      initial={{ scale: 0, rotate: -180 }}
+                      animate={isInView ? { scale: 1, rotate: 0 } : {}}
+                      transition={{ 
+                        duration: 0.5, 
+                        delay: 0.4 + index * 0.15,
+                        type: 'spring',
+                        stiffness: 200
+                      }}
+                      className={`w-14 h-14 rounded-2xl bg-linear-to-br ${benefit.color} flex items-center justify-center mb-4 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300`}
                     >
                       <Icon className="w-7 h-7 text-white" />
-                    </div>
+                    </motion.div>
 
                     {/* Content */}
-                    <h3 className="text-xl font-bold text-foreground mb-2">
+                    <motion.h3
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={isInView ? { opacity: 1, x: 0 } : {}}
+                      transition={{ duration: 0.4, delay: 0.5 + index * 0.15 }}
+                      className="text-xl font-bold text-foreground mb-2"
+                    >
                       {benefit.title}
-                    </h3>
-                    <p className="text-muted-foreground text-sm leading-relaxed">
+                    </motion.h3>
+                    <motion.p
+                      initial={{ opacity: 0 }}
+                      animate={isInView ? { opacity: 1 } : {}}
+                      transition={{ duration: 0.4, delay: 0.6 + index * 0.15 }}
+                      className="text-muted-foreground text-sm leading-relaxed"
+                    >
                       {benefit.description}
-                    </p>
+                    </motion.p>
 
                     {/* Decorative gradient */}
                     <div
-                      className={`absolute -bottom-20 -right-20 w-40 h-40 rounded-full bg-linear-to-br ${benefit.color} opacity-5 group-hover:opacity-10 transition-opacity`}
+                      className={`absolute -bottom-20 -right-20 w-40 h-40 rounded-full bg-linear-to-br ${benefit.color} opacity-5 group-hover:opacity-15 transition-opacity duration-500`}
                     />
                   </CardContent>
                 </Card>
@@ -145,21 +179,31 @@ export default function Benefits() {
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.4 }}
+          transition={{ duration: 0.6, delay: 0.6 }}
           className="relative"
         >
           <div className="absolute inset-0 bg-linear-to-r from-primary/5 via-accent/5 to-primary/5 rounded-3xl" />
 
           <div className="relative bg-white/60 backdrop-blur-sm rounded-3xl border border-white/60 shadow-xl p-8 md:p-12">
             <div className="text-center mb-12">
-              <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
+              <motion.h3
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.5, delay: 0.7 }}
+                className="text-2xl md:text-3xl font-bold text-foreground mb-4"
+              >
                 저희 컨설팅이{' '}
                 <span className="text-primary">특별한 이유</span>
-              </h3>
-              <p className="text-muted-foreground">
+              </motion.h3>
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={isInView ? { opacity: 1 } : {}}
+                transition={{ duration: 0.5, delay: 0.8 }}
+                className="text-muted-foreground"
+              >
                 검증된 전문성과 신뢰를 바탕으로 대표님의 자금 고민을
                 해결합니다
-              </p>
+              </motion.p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -170,20 +214,27 @@ export default function Benefits() {
                     key={feature.title}
                     initial={{
                       opacity: 0,
-                      x: index % 2 === 0 ? -20 : 20,
+                      x: index % 2 === 0 ? -30 : 30,
+                      y: 20,
                     }}
-                    animate={isInView ? { opacity: 1, x: 0 } : {}}
+                    animate={isInView ? { opacity: 1, x: 0, y: 0 } : {}}
                     transition={{
                       duration: 0.5,
-                      delay: 0.5 + index * 0.1,
+                      delay: 0.9 + index * 0.1,
+                      type: 'spring',
+                      stiffness: 100,
                     }}
-                    className="flex gap-4 group"
+                    whileHover={{ x: 5 }}
+                    className="flex gap-4 group cursor-pointer"
                   >
-                    <div className="shrink-0 w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary group-hover:scale-110 transition-all duration-300">
+                    <motion.div
+                      whileHover={{ scale: 1.1, rotate: 5 }}
+                      className="shrink-0 w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary transition-all duration-300"
+                    >
                       <Icon className="w-6 h-6 text-primary group-hover:text-white transition-colors" />
-                    </div>
+                    </motion.div>
                     <div>
-                      <h4 className="text-lg font-semibold text-foreground mb-1">
+                      <h4 className="text-lg font-semibold text-foreground mb-1 group-hover:text-primary transition-colors">
                         {feature.title}
                       </h4>
                       <p className="text-muted-foreground text-sm">

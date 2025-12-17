@@ -81,11 +81,30 @@ export default function Hero() {
 
           {/* Main Heading */}
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black leading-tight mb-4 md:mb-6">
-            <span className="block text-foreground">
+            <motion.span
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3, duration: 0.5 }}
+              className="block text-foreground"
+            >
               매년 쏟아지는
-            </span>
-            <span className="gradient-text">20조 원</span>
-            <span className="block text-foreground">정책자금</span>
+            </motion.span>
+            <motion.span
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.5, duration: 0.6, type: 'spring', stiffness: 100 }}
+              className="gradient-text inline-block"
+            >
+              20조 원
+            </motion.span>
+            <motion.span
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.7, duration: 0.5 }}
+              className="block text-foreground"
+            >
+              정책자금
+            </motion.span>
           </h1>
 
           {/* Subheading */}

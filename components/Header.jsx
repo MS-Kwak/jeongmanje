@@ -23,8 +23,8 @@ import {
 const navItems = [
   { name: '정책자금이란', href: '#about', icon: FileText },
   { name: '왜 정책자금인가', href: '#benefits', icon: Award },
+  { name: '지금 시작하기', href: '#urgency', icon: MessageCircle },
   { name: '성공사례', href: '#success', icon: Award },
-  { name: '상담신청', href: '#contact', icon: MessageCircle },
 ];
 
 export default function Header() {
@@ -68,7 +68,7 @@ export default function Header() {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-8">
+          <nav className="hidden lg:flex items-center gap-12">
             {navItems.map((item) => (
               <Link
                 key={item.name}

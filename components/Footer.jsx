@@ -1,7 +1,9 @@
 'use client';
 
+import { useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { motion, useInView } from 'framer-motion';
 import { Phone, Mail, MapPin } from 'lucide-react';
 
 const navItems = [
@@ -12,22 +14,35 @@ const navItems = [
 ];
 
 export default function Footer() {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: '-50px' });
+
   return (
-    <footer className="bg-foreground text-white">
+    <footer ref={ref} className="bg-foreground text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Main Footer */}
         <div className="py-12 md:py-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Logo & Description */}
-          <div className="lg:col-span-2">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6 }}
+            className="lg:col-span-2"
+          >
             <Link href="/" className="flex items-center gap-3 mb-4">
-              <div className="relative w-10 h-10 bg-white rounded-lg p-1">
+              <motion.div
+                initial={{ scale: 0 }}
+                animate={isInView ? { scale: 1 } : {}}
+                transition={{ duration: 0.5, delay: 0.2, type: 'spring' }}
+                className="relative w-10 h-10 bg-white rounded-lg p-1"
+              >
                 <Image
                   src="/images/logo.svg"
                   alt="정만제 로고"
                   fill
                   className="object-contain"
                 />
-              </div>
+              </motion.div>
               <span className="text-xl font-bold">
                 정책자금<span className="text-primary">컨설팅</span>
               </span>
@@ -40,40 +55,57 @@ export default function Footer() {
 
             {/* Contact Info */}
             <div className="space-y-3">
-              <div className="flex items-center gap-3 text-white/80">
-                <Phone className="w-5 h-5 text-primary" />
-                <span>전화문의</span>
-              </div>
-              <div className="flex items-center gap-3 text-white/80">
-                <Mail className="w-5 h-5 text-primary" />
-                <span>이메일 문의</span>
-              </div>
-              <div className="flex items-start gap-3 text-white/80">
-                <MapPin className="w-5 h-5 text-primary shrink-0" />
-                <span>사업장 주소</span>
-              </div>
+              {[
+                { icon: Phone, text: '전화문의' },
+                { icon: Mail, text: '이메일 문의' },
+                { icon: MapPin, text: '사업장 주소' },
+              ].map((item, index) => (
+                <motion.div
+                  key={item.text}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={isInView ? { opacity: 1, x: 0 } : {}}
+                  transition={{ duration: 0.4, delay: 0.3 + index * 0.1 }}
+                  className="flex items-center gap-3 text-white/80 hover:text-white transition-colors cursor-pointer"
+                >
+                  <item.icon className="w-5 h-5 text-primary" />
+                  <span>{item.text}</span>
+                </motion.div>
+              ))}
             </div>
-          </div>
+          </motion.div>
 
           {/* Navigation */}
-          <div>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
             <h4 className="text-lg font-semibold mb-4">바로가기</h4>
             <ul className="space-y-3">
-              {navItems.map((item) => (
-                <li key={item.name}>
+              {navItems.map((item, index) => (
+                <motion.li
+                  key={item.name}
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={isInView ? { opacity: 1, x: 0 } : {}}
+                  transition={{ duration: 0.3, delay: 0.4 + index * 0.1 }}
+                >
                   <Link
                     href={item.href}
-                    className="text-white/60 hover:text-white transition-colors text-sm"
+                    className="text-white/60 hover:text-white hover:translate-x-1 inline-block transition-all text-sm"
                   >
                     {item.name}
                   </Link>
-                </li>
+                </motion.li>
               ))}
             </ul>
-          </div>
+          </motion.div>
 
           {/* Business Info */}
-          <div>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.4 }}
+          >
             <h4 className="text-lg font-semibold mb-4">
               사업자 정보
             </h4>
@@ -82,11 +114,16 @@ export default function Footer() {
               <li>대표자명: 대표자명</li>
               <li>사업자번호: 000-00-00000</li>
             </ul>
-          </div>
+          </motion.div>
         </div>
 
         {/* Bottom Bar */}
-        <div className="py-6 border-t border-white/10">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.6, delay: 0.6 }}
+          className="py-6 border-t border-white/10"
+        >
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-white/40 text-sm">
               © {new Date().getFullYear()} 회사명. All Rights
@@ -107,7 +144,7 @@ export default function Footer() {
               </Link>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </footer>
   );

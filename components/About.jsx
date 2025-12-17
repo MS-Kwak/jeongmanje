@@ -32,33 +32,54 @@ export default function About() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Left Content */}
-          <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6 }}
-          >
-            <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-4">
+          <div>
+            <motion.span
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5 }}
+              className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-4"
+            >
               정책자금이란?
-            </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-foreground mb-6 leading-tight">
+            </motion.span>
+            <motion.h2
+              initial={{ opacity: 0, y: 30 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="text-3xl sm:text-4xl md:text-5xl font-black text-foreground mb-6 leading-tight"
+            >
               아직도 <span className="text-primary">정책자금</span>
               <br />못 받으셨나요?
-            </h2>
-            <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
+            </motion.h2>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="text-lg text-muted-foreground mb-8 leading-relaxed"
+            >
               매년{' '}
               <span className="text-foreground font-semibold">
                 20조 원
               </span>{' '}
               이상 쏟아지는 정책자금과 지원금, 대표님의 몫은 어디에
               있습니까?
-            </p>
+            </motion.p>
 
             {/* Comparison */}
-            <div className="bg-linear-to-r from-primary/10 to-accent/10 rounded-2xl p-6 mb-8">
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              animate={isInView ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="bg-linear-to-r from-primary/10 to-accent/10 rounded-2xl p-6 mb-8"
+            >
               <div className="flex items-start gap-4">
-                <div className="shrink-0 w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center">
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={isInView ? { scale: 1 } : {}}
+                  transition={{ duration: 0.4, delay: 0.5, type: 'spring', stiffness: 200 }}
+                  className="shrink-0 w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center"
+                >
                   <HelpCircle className="w-5 h-5 text-primary" />
-                </div>
+                </motion.div>
                 <div>
                   <h4 className="font-bold text-foreground mb-2">
                     자본 10억 기업 vs 1억 기업
@@ -73,20 +94,25 @@ export default function About() {
                   </p>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.3 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
               className="flex items-center gap-3 text-muted-foreground"
             >
-              <AlertCircle className="w-5 h-5 text-amber-500" />
+              <motion.div
+                animate={{ rotate: [0, -10, 10, -10, 0] }}
+                transition={{ duration: 0.5, delay: 1, repeat: Infinity, repeatDelay: 3 }}
+              >
+                <AlertCircle className="w-5 h-5 text-amber-500" />
+              </motion.div>
               <span>
                 아직도 개인 자금으로만 사업을 운영 중이신가요?
               </span>
             </motion.div>
-          </motion.div>
+          </div>
 
           {/* Right Content - Problems */}
           <motion.div

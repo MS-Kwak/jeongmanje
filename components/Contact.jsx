@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
 import {
   Phone,
@@ -8,12 +8,25 @@ import {
   Send,
   CheckCircle,
   Loader2,
+  AlertCircle,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent } from '@/components/ui/card';
+
+// kakao 기능 동작을 위해 넣어준다.
+const KAKAO_ADMIN_KEY = process.env.NEXT_PUBLIC_KAKAO_ADMIN_KEY;
+const KAKAO_PUBLIC_KEY = '_xgxkEFn';
+
+// Kakao 객체는 클라이언트에서만 접근
+const getKakao = () => {
+  if (typeof window !== 'undefined') {
+    return window.Kakao;
+  }
+  return null;
+};
 
 const creditScoreOptions = [
   '선택해주세요',
@@ -44,6 +57,7 @@ export default function Contact() {
   const isInView = useInView(ref, { once: true, margin: '-100px' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [errors, setErrors] = useState({});
   const [formData, setFormData] = useState({
     companyName: '',
     industry: '',
@@ -57,19 +71,162 @@ export default function Contact() {
     agreed: false,
   });
 
+  useEffect(() => {
+    // 카카오 SDK 스크립트 동적 로드
+    const loadKakaoSDK = () => {
+      return new Promise((resolve) => {
+        // 이미 로드된 경우
+        if (window.Kakao) {
+          resolve(window.Kakao);
+          return;
+        }
+
+        // 스크립트가 이미 추가된 경우
+        const existingScript = document.getElementById('kakao-sdk');
+        if (existingScript) {
+          existingScript.onload = () => resolve(window.Kakao);
+          return;
+        }
+
+        // 스크립트 동적 생성
+        const script = document.createElement('script');
+        script.id = 'kakao-sdk';
+        script.src =
+          'https://t1.kakaocdn.net/kakao_js_sdk/2.7.5/kakao.min.js';
+        script.integrity =
+          'sha384-dok87au0gKqJdxs7msEdBPNnKSRT+/mhTVzq+qOhcL464zXwvcrpjeWvyj1kCdq6';
+        script.crossOrigin = 'anonymous';
+        script.onload = () => resolve(window.Kakao);
+        document.head.appendChild(script);
+      });
+    };
+
+    loadKakaoSDK().then((Kakao) => {
+      if (Kakao && !Kakao.isInitialized()) {
+        if (KAKAO_ADMIN_KEY) {
+          Kakao.init(KAKAO_ADMIN_KEY);
+          console.log('Kakao SDK 초기화 완료');
+        } else {
+          console.warn(
+            'KAKAO_ADMIN_KEY가 설정되지 않았습니다. .env.local 파일을 확인하세요.'
+          );
+        }
+      }
+    });
+  }, []);
+
+  const onClickChatChannel = () => {
+    const Kakao = getKakao();
+    if (Kakao && Kakao.isInitialized()) {
+      Kakao.Channel.chat({
+        channelPublicId: KAKAO_PUBLIC_KEY,
+      });
+    } else {
+      // SDK가 초기화되지 않은 경우 직접 카카오톡 채널로 이동
+      window.open(
+        `https://pf.kakao.com/${KAKAO_PUBLIC_KEY}/chat`,
+        '_blank'
+      );
+    }
+  };
+
+  // 전화번호 자동 하이픈 포맷팅
+  const formatPhoneNumber = (value) => {
+    // 숫자만 추출
+    const numbers = value.replace(/[^0-9]/g, '');
+
+    // 서울 지역번호 (02)
+    if (numbers.startsWith('02')) {
+      if (numbers.length <= 2) return numbers;
+      if (numbers.length <= 5)
+        return `${numbers.slice(0, 2)}-${numbers.slice(2)}`;
+      if (numbers.length <= 9)
+        return `${numbers.slice(0, 2)}-${numbers.slice(
+          2,
+          5
+        )}-${numbers.slice(5)}`;
+      return `${numbers.slice(0, 2)}-${numbers.slice(
+        2,
+        6
+      )}-${numbers.slice(6, 10)}`;
+    }
+
+    // 휴대폰 (010, 011, 016, 017, 018, 019)
+    if (numbers.startsWith('01')) {
+      if (numbers.length <= 3) return numbers;
+      if (numbers.length <= 7)
+        return `${numbers.slice(0, 3)}-${numbers.slice(3)}`;
+      return `${numbers.slice(0, 3)}-${numbers.slice(
+        3,
+        7
+      )}-${numbers.slice(7, 11)}`;
+    }
+
+    // 대표번호 (1588, 1577, 1566 등)
+    if (numbers.startsWith('1')) {
+      if (numbers.length <= 4) return numbers;
+      return `${numbers.slice(0, 4)}-${numbers.slice(4, 8)}`;
+    }
+
+    // 일반 지역번호 (031, 032, 033 등)
+    if (numbers.length <= 3) return numbers;
+    if (numbers.length <= 6)
+      return `${numbers.slice(0, 3)}-${numbers.slice(3)}`;
+    if (numbers.length <= 10)
+      return `${numbers.slice(0, 3)}-${numbers.slice(
+        3,
+        6
+      )}-${numbers.slice(6)}`;
+    return `${numbers.slice(0, 3)}-${numbers.slice(
+      3,
+      7
+    )}-${numbers.slice(7, 11)}`;
+  };
+
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
+
+    // 전화번호 필드는 자동 포맷팅 적용
+    const processedValue =
+      name === 'phone' ? formatPhoneNumber(value) : value;
+
     setFormData((prev) => ({
       ...prev,
-      [name]: type === 'checkbox' ? checked : value,
+      [name]: type === 'checkbox' ? checked : processedValue,
     }));
+    // 입력 시 해당 필드의 에러 제거
+    if (errors[name]) {
+      setErrors((prev) => ({ ...prev, [name]: '' }));
+    }
+  };
+
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (!formData.companyName.trim()) {
+      newErrors.companyName = '회사명을 입력해주세요.';
+    }
+    if (!formData.industry.trim()) {
+      newErrors.industry = '업종을 입력해주세요.';
+    }
+    if (!formData.name.trim()) {
+      newErrors.name = '대표자 이름을 입력해주세요.';
+    }
+    if (!formData.phone.trim()) {
+      newErrors.phone = '연락처를 입력해주세요.';
+    }
+    if (!formData.agreed) {
+      newErrors.agreed = '개인정보 수집 및 이용에 동의해주세요.';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!formData.agreed) {
-      alert('개인정보 수집 및 이용에 동의해주세요.');
+    if (!validateForm()) {
       return;
     }
 
@@ -81,6 +238,17 @@ export default function Contact() {
         process.env.NEXT_PUBLIC_GOOGLE_SHEET_URL;
 
       if (GOOGLE_SHEET_URL) {
+        // 한국 시간으로 보기 좋게 포맷팅
+        const now = new Date();
+        const koreaTime = new Date(
+          now.getTime() + 9 * 60 * 60 * 1000
+        );
+        const formattedTime = koreaTime
+          .toISOString()
+          .replace('T', ' ')
+          .replace('Z', '')
+          .slice(0, 19);
+
         await fetch(GOOGLE_SHEET_URL, {
           method: 'POST',
           mode: 'no-cors',
@@ -89,7 +257,9 @@ export default function Contact() {
           },
           body: JSON.stringify({
             ...formData,
-            timestamp: new Date().toISOString(),
+            // 휴대폰 번호 앞에 ' 추가하여 문자로 인식
+            phone: `'${formData.phone}`,
+            timestamp: formattedTime,
           }),
         });
       }
@@ -182,7 +352,10 @@ export default function Contact() {
                     <MessageCircle className="w-6 h-6" />
                   </div>
                   <div>
-                    <p className="text-sm opacity-80">
+                    <p
+                      className="text-sm opacity-80"
+                      onClick={onClickChatChannel}
+                    >
                       카카오톡 상담
                     </p>
                     <p className="text-lg font-bold">바로가기 →</p>
@@ -249,46 +422,107 @@ export default function Contact() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       {/* Company Name */}
                       <div className="space-y-2">
-                        <Label htmlFor="companyName">회사명 *</Label>
+                        <Label
+                          htmlFor="companyName"
+                          className={
+                            errors.companyName ? 'text-red-500' : ''
+                          }
+                        >
+                          회사명{' '}
+                          <span className="text-red-500">*</span>
+                        </Label>
                         <Input
                           id="companyName"
                           name="companyName"
                           placeholder="회사명을 입력해주세요"
                           value={formData.companyName}
                           onChange={handleChange}
-                          required
+                          className={
+                            errors.companyName
+                              ? 'border-red-500 focus-visible:ring-red-500'
+                              : ''
+                          }
                         />
+                        {errors.companyName && (
+                          <p className="text-red-500 text-sm flex items-center gap-1">
+                            <AlertCircle className="w-4 h-4" />
+                            {errors.companyName}
+                          </p>
+                        )}
                       </div>
 
                       {/* Industry */}
                       <div className="space-y-2">
-                        <Label htmlFor="industry">업종 *</Label>
+                        <Label
+                          htmlFor="industry"
+                          className={
+                            errors.industry ? 'text-red-500' : ''
+                          }
+                        >
+                          업종 <span className="text-red-500">*</span>
+                        </Label>
                         <Input
                           id="industry"
                           name="industry"
                           placeholder="업종을 입력해주세요"
                           value={formData.industry}
                           onChange={handleChange}
-                          required
+                          className={
+                            errors.industry
+                              ? 'border-red-500 focus-visible:ring-red-500'
+                              : ''
+                          }
                         />
+                        {errors.industry && (
+                          <p className="text-red-500 text-sm flex items-center gap-1">
+                            <AlertCircle className="w-4 h-4" />
+                            {errors.industry}
+                          </p>
+                        )}
                       </div>
 
                       {/* Name */}
                       <div className="space-y-2">
-                        <Label htmlFor="name">대표자 이름 *</Label>
+                        <Label
+                          htmlFor="name"
+                          className={
+                            errors.name ? 'text-red-500' : ''
+                          }
+                        >
+                          대표자 이름{' '}
+                          <span className="text-red-500">*</span>
+                        </Label>
                         <Input
                           id="name"
                           name="name"
                           placeholder="대표자 이름을 입력해주세요"
                           value={formData.name}
                           onChange={handleChange}
-                          required
+                          className={
+                            errors.name
+                              ? 'border-red-500 focus-visible:ring-red-500'
+                              : ''
+                          }
                         />
+                        {errors.name && (
+                          <p className="text-red-500 text-sm flex items-center gap-1">
+                            <AlertCircle className="w-4 h-4" />
+                            {errors.name}
+                          </p>
+                        )}
                       </div>
 
                       {/* Phone */}
                       <div className="space-y-2">
-                        <Label htmlFor="phone">연락처 *</Label>
+                        <Label
+                          htmlFor="phone"
+                          className={
+                            errors.phone ? 'text-red-500' : ''
+                          }
+                        >
+                          연락처{' '}
+                          <span className="text-red-500">*</span>
+                        </Label>
                         <Input
                           id="phone"
                           name="phone"
@@ -296,8 +530,18 @@ export default function Contact() {
                           placeholder="연락처를 입력해주세요"
                           value={formData.phone}
                           onChange={handleChange}
-                          required
+                          className={
+                            errors.phone
+                              ? 'border-red-500 focus-visible:ring-red-500'
+                              : ''
+                          }
                         />
+                        {errors.phone && (
+                          <p className="text-red-500 text-sm flex items-center gap-1">
+                            <AlertCircle className="w-4 h-4" />
+                            {errors.phone}
+                          </p>
+                        )}
                       </div>
 
                       {/* Location */}
@@ -385,7 +629,13 @@ export default function Contact() {
                     </div>
 
                     {/* Agreement */}
-                    <div className="p-4 rounded-lg bg-muted/50">
+                    <div
+                      className={`p-4 rounded-lg ${
+                        errors.agreed
+                          ? 'bg-red-50 border border-red-200'
+                          : 'bg-muted/50'
+                      }`}
+                    >
                       <h5 className="font-semibold text-sm text-foreground mb-2">
                         개인정보 수집 및 이용 동의
                       </h5>
@@ -403,12 +653,29 @@ export default function Contact() {
                           name="agreed"
                           checked={formData.agreed}
                           onChange={handleChange}
-                          className="w-4 h-4 rounded border-gray-300 text-primary focus:ring-primary"
+                          className={`w-4 h-4 rounded text-primary focus:ring-primary ${
+                            errors.agreed
+                              ? 'border-red-500'
+                              : 'border-gray-300'
+                          }`}
                         />
-                        <span className="text-sm text-foreground">
-                          개인정보 수집 및 이용에 동의합니다. *
+                        <span
+                          className={`text-sm ${
+                            errors.agreed
+                              ? 'text-red-500'
+                              : 'text-foreground'
+                          }`}
+                        >
+                          개인정보 수집 및 이용에 동의합니다.{' '}
+                          <span className="text-red-500">*</span>
                         </span>
                       </label>
+                      {errors.agreed && (
+                        <p className="text-red-500 text-sm flex items-center gap-1 mt-2">
+                          <AlertCircle className="w-4 h-4" />
+                          {errors.agreed}
+                        </p>
+                      )}
                     </div>
 
                     {/* Submit Button */}
