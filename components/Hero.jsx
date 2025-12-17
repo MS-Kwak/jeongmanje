@@ -76,7 +76,7 @@ export default function Hero() {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
             </span>
-            2024년 정책자금 신청 접수 중
+            2025년 정책자금 신청 접수 중
           </motion.div>
 
           {/* Main Heading */}
@@ -92,7 +92,12 @@ export default function Hero() {
             <motion.span
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.5, duration: 0.6, type: 'spring', stiffness: 100 }}
+              transition={{
+                delay: 0.5,
+                duration: 0.6,
+                type: 'spring',
+                stiffness: 100,
+              }}
               className="gradient-text inline-block"
             >
               20조 원
