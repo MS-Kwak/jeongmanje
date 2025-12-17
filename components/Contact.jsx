@@ -349,17 +349,17 @@ export default function Contact() {
             </a>
 
             {/* KakaoTalk Card */}
-            <Card className="border-0 shadow-lg shadow-primary/10 bg-[#FEE500] text-[#3C1E1E] overflow-hidden group cursor-pointer mt-2">
+            <Card
+              className="border-0 shadow-lg shadow-primary/10 bg-[#FEE500] text-[#3C1E1E] overflow-hidden group cursor-pointer mt-2 hover:shadow-xl transition-shadow"
+              onClick={onClickChatChannel}
+            >
               <CardContent className="p-6">
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 rounded-xl bg-[#3C1E1E]/10 flex items-center justify-center group-hover:scale-110 transition-transform">
                     <MessageCircle className="w-6 h-6" />
                   </div>
                   <div>
-                    <p
-                      className="text-sm opacity-80"
-                      onClick={onClickChatChannel}
-                    >
+                    <p className="text-sm opacity-80">
                       카카오톡 상담
                     </p>
                     <p className="text-lg font-bold">바로가기 →</p>
