@@ -4,7 +4,7 @@ import { useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion, useInView } from 'framer-motion';
-import { Phone, Mail, MapPin } from 'lucide-react';
+import { Phone } from 'lucide-react';
 
 const navItems = [
   { name: '정책자금이란', href: '#about' },
@@ -33,7 +33,11 @@ export default function Footer() {
               <motion.div
                 initial={{ scale: 0 }}
                 animate={isInView ? { scale: 1 } : {}}
-                transition={{ duration: 0.5, delay: 0.2, type: 'spring' }}
+                transition={{
+                  duration: 0.5,
+                  delay: 0.2,
+                  type: 'spring',
+                }}
                 className="relative w-10 h-10 bg-white rounded-lg p-1"
               >
                 <Image
@@ -55,22 +59,23 @@ export default function Footer() {
 
             {/* Contact Info */}
             <div className="space-y-3">
-              {[
-                { icon: Phone, text: '전화문의' },
-                { icon: Mail, text: '이메일 문의' },
-                { icon: MapPin, text: '사업장 주소' },
-              ].map((item, index) => (
-                <motion.div
-                  key={item.text}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={isInView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ duration: 0.4, delay: 0.3 + index * 0.1 }}
-                  className="flex items-center gap-3 text-white/80 hover:text-white transition-colors cursor-pointer"
-                >
-                  <item.icon className="w-5 h-5 text-primary" />
-                  <span>{item.text}</span>
-                </motion.div>
-              ))}
+              {[{ icon: Phone, text: '연락처: 010-6776-3670' }].map(
+                (item, index) => (
+                  <motion.div
+                    key={item.text}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={isInView ? { opacity: 1, x: 0 } : {}}
+                    transition={{
+                      duration: 0.4,
+                      delay: 0.3 + index * 0.1,
+                    }}
+                    className="flex items-center gap-3 text-white/80 hover:text-white transition-colors"
+                  >
+                    <item.icon className="w-5 h-5 text-primary" />
+                    <span>{item.text}</span>
+                  </motion.div>
+                )
+              )}
             </div>
           </motion.div>
 
@@ -87,7 +92,10 @@ export default function Footer() {
                   key={item.name}
                   initial={{ opacity: 0, x: -10 }}
                   animate={isInView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ duration: 0.3, delay: 0.4 + index * 0.1 }}
+                  transition={{
+                    duration: 0.3,
+                    delay: 0.4 + index * 0.1,
+                  }}
                 >
                   <Link
                     href={item.href}
@@ -110,9 +118,10 @@ export default function Footer() {
               사업자 정보
             </h4>
             <ul className="space-y-2 text-sm text-white/60">
-              <li>회사명: 회사명</li>
-              <li>대표자명: 대표자명</li>
-              <li>사업자번호: 000-00-00000</li>
+              <li>회사명: 정 솔루션</li>
+              <li>대표자명: 정만제</li>
+              <li>사업자번호: 751-29-01700</li>
+              <li>주소: 경기도 광명시 소하2동 924-42</li>
             </ul>
           </motion.div>
         </div>

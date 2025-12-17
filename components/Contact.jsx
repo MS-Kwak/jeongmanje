@@ -327,25 +327,29 @@ export default function Contact() {
             className="lg:col-span-1 space-y-6"
           >
             {/* Phone Card */}
-            <Card className="border-0 shadow-lg shadow-primary/10 bg-linear-to-br from-primary to-accent text-white overflow-hidden">
-              <CardContent className="p-6">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center">
-                    <Phone className="w-6 h-6" />
+            <a href="tel:010-6776-3670">
+              <Card className="border-0 shadow-lg shadow-primary/10 bg-linear-to-br from-primary to-accent text-white overflow-hidden cursor-pointer group hover:shadow-xl transition-shadow">
+                <CardContent className="p-6">
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                      <Phone className="w-6 h-6" />
+                    </div>
+                    <div>
+                      <p className="text-sm text-white/80">
+                        유선상담
+                      </p>
+                      <p className="text-lg font-bold">전화하기 →</p>
+                    </div>
                   </div>
-                  <div>
-                    <p className="text-sm text-white/80">유선상담</p>
-                    <p className="text-2xl font-bold">전화문의</p>
-                  </div>
-                </div>
-                <p className="text-sm text-white/80">
-                  평일 09:00 - 18:00 (주말/공휴일 휴무)
-                </p>
-              </CardContent>
-            </Card>
+                  <p className="text-sm text-white/80">
+                    평일 09:00 - 18:00 (주말/공휴일 휴무)
+                  </p>
+                </CardContent>
+              </Card>
+            </a>
 
             {/* KakaoTalk Card */}
-            <Card className="border-0 shadow-lg shadow-primary/10 bg-[#FEE500] text-[#3C1E1E] overflow-hidden group cursor-pointer">
+            <Card className="border-0 shadow-lg shadow-primary/10 bg-[#FEE500] text-[#3C1E1E] overflow-hidden group cursor-pointer mt-2">
               <CardContent className="p-6">
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 rounded-xl bg-[#3C1E1E]/10 flex items-center justify-center group-hover:scale-110 transition-transform">
